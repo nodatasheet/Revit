@@ -1,6 +1,6 @@
 """Convert number to string without trailing zeros.
-This method may return scientific notation with very big numbers.
-If this is a problem, consider other methods:
+This method may return scientific notation of very big numbers.
+If that is a problem, consider other methods:
 https://stackoverflow.com/a/37736333
 """
 
