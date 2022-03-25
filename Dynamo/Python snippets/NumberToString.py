@@ -5,19 +5,19 @@ https://stackoverflow.com/a/37736333
 """
 
 
-def num_to_str(nmbr):
+def num_to_str(num):
     # type: (None) -> str
     """Number to string without trailing zeros"""
-    s = str(nmbr)
+    s = str(num)
     return '0' if s == '0' else s.rstrip('0').rstrip('.')
 
 
 # input number or list of numbers
-inp_nmbr = IN[0]
+input_num = IN[0]
 
-if hasattr(inp_nmbr, '__iter__'):
-    s = map(num_to_str, inp_nmbr)
+if hasattr(input_num, '__iter__'):
+    str_from_num = map(num_to_str, input_num)
 else:
-    s = num_to_str(inp_nmbr)
+    str_from_num = num_to_str(input_num)
 
-OUT = s
+OUT = str_from_num
