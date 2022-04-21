@@ -1,4 +1,6 @@
 """Pack 1D items using First Fit Decreasing algorithm.
+https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing
+
 Supply: list of numbers, bin size (max number to fit into one bin)
 Return: numbers packed in bins, bins qty, waste factor
 
@@ -10,7 +12,8 @@ waste_factor -> 0.090909...
 
 def first_fit_decreasing(items, bin_size):
     # type: (list, int | float) -> list
-    """Pack 1D items using First Fit Decreasing algorithm."""
+    """Pack 1D items using First Fit Decreasing algorithm.
+    https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing"""
 
     def catch_oversized(items, bin_size):
         # type: (list, int | float) -> None | ValueError
