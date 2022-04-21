@@ -13,6 +13,6 @@ def almost_equal(a, b, rel_tol=1e-09, abs_tol=0.0):
 
 
 # Examples:
-print (almost_equal(5.2, 5.2))  # True
-print (almost_equal(5.201, 5.202))  # False
-print (almost_equal(5.201, 5.202, 0.1))  # True
+almost_equal(5.2, 5.2)  # True
+almost_equal(5.201, 5.202)  # False
+almost_equal(5.201, 5.202, 0.1)  # True
