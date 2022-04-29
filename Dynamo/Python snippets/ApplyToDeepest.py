@@ -16,8 +16,8 @@ def my_square(x):
     return x * x
 
 
-a = 4  # single item
-b = [4, [2, 5, [3, 4]], 7]  # list of items
-
-print (apply_to_deepest(my_square, a))
-print (apply_to_deepest(my_square, b))
+# Examples
+a = 4
+b = [4, [2, 5, [3, 4]], 7]
+print(apply_to_deepest(my_square, a))  # 16
+print(apply_to_deepest(my_square, b))  # [16, [4, 25, [9, 16]], 49]
