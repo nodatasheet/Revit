@@ -13,7 +13,7 @@ ___
 
 ### StringsGoogleTranslate
 
-![StringsGoogleTranslate_1](/images/StringsGoogleTranslate_1.jpg)
+![StringsGoogleTranslate_1](https://github.com/nodatasheet/Revit/blob/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslate_1.jpg)
 
 **Translates list of strings using Google Translate service.**
 
@@ -42,7 +42,7 @@ ___
 
 ### StringsGoogleTranslateDetect
 
-![StringsGoogleTranslateDetect_1](/images/StringsGoogleTranslateDetect_1.jpg)
+![StringsGoogleTranslateDetect_1](https://github.com/nodatasheet/Revit/raw/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslateDetect_1.jpg)
 
 **Takes list of strings and detects the language of each string using Google Translate service.**
 
