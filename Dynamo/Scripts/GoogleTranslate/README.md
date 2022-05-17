@@ -12,12 +12,12 @@
 ___
 
 ### StringsGoogleTranslate
+
 ![StringsGoogleTranslate_1](/images/StringsGoogleTranslate_1.jpg)
 
 **Translates list of strings using Google Translate service.**
 
-- It is better to define source/destination language by its three-letter code
-    according to ISO 639-2 / ISO 639-3:\
+- It is better to define source/destination language by its three-letter code according to ISO 639-2 / ISO 639-3:\
     https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes \
     Simple language names are also acceptable ("English", "Japanese", etc).
 
@@ -41,12 +41,12 @@ ___
 ___
 
 ### StringsGoogleTranslateDetect
+
 ![StringsGoogleTranslateDetect_1](/images/StringsGoogleTranslateDetect_1.jpg)
 
 **Takes list of strings and detects the language of each string using Google Translate service.**
 
-- Detected language result is a string with three-letter code
-    according to ISO 639-2 / ISO 639-3:
+- Detected language result is a string with three-letter code according to ISO 639-2 / ISO 639-3:\
     https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
 
 - By default translation is done via `translate.google.com` server. Feel free to change it to other suitable server in your region using SERVER_URL constant.\
