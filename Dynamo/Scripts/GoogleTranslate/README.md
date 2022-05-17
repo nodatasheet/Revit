@@ -18,7 +18,9 @@ ___
 
 ### StringsGoogleTranslate
 
-![StringsGoogleTranslate_1](https://github.com/nodatasheet/Revit/blob/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslate_1.jpg)
+![вот так картинка видна](https://github.com/nodatasheet/Revit/blob/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslate_1.jpg)
+![а вот так - нет](images/StringsGoogleTranslateDetect_1.jpg)
+
 
 [StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
 
