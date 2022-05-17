@@ -11,9 +11,16 @@
 
 ___
 
+### Content
+ 1. [StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
+ 2. [StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
+
+
 ### StringsGoogleTranslate
 
 ![StringsGoogleTranslate_1](https://github.com/nodatasheet/Revit/blob/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslate_1.jpg)
+
+[StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
 
 **Translates list of strings using Google Translate service.**
 
@@ -43,6 +50,8 @@ ___
 ### StringsGoogleTranslateDetect
 
 ![StringsGoogleTranslateDetect_1](https://github.com/nodatasheet/Revit/raw/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslateDetect_1.jpg)
+
+[StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
 
 **Takes list of strings and detects the language of each string using Google Translate service.**
 
