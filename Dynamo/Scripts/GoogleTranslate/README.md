@@ -2,17 +2,17 @@
 
 ## IMPORTANT:
 
- - Scripts are for CPython3 only ([Introduced in Dynamo 2.7](https://dynamobim.org/dynamo-core-2-7-release/)). Not intended to work with IronPython.
- - Tested with Dynamo 2.12
- - Scripts use module [translatepy](https://github.com/Animenosekai/translate) which has to be installed.
- - More about installing Python modules in Dynamo:\
-  https://github.com/DynamoDS/Dynamo/wiki/Customizing-Dynamo%27s-Python-3-installation \
-  https://forum.dynamobim.com/t/how-to-install-python-modules-in-dynamo-core-runtime-2-8-0/52922/32
+- Scripts are for CPython3 only ([Introduced in Dynamo 2.7](https://dynamobim.org/dynamo-core-2-7-release/)). Not intended to work with IronPython.
+- Tested with Dynamo 2.12
+- Scripts use module [translatepy](https://github.com/Animenosekai/translate) which has to be installed.
+- More about installing Python modules in Dynamo:\
+    https://github.com/DynamoDS/Dynamo/wiki/Customizing-Dynamo%27s-Python-3-installation \
+    https://forum.dynamobim.com/t/how-to-install-python-modules-in-dynamo-core-runtime-2-8-0/52922/32
 
 ___
 
 ### StringsGoogleTranslate
-
+![StringsGoogleTranslate_1](/images/StringsGoogleTranslate_1.jpg)
 Translate list of strings using Google Translate service.
 
 - It is better to define source/destination language by its three-letter code
@@ -40,7 +40,7 @@ Translate list of strings using Google Translate service.
 ___
 
 ### StringsGoogleTranslateDetect
-
+![StringsGoogleTranslateDetect_1](images/StringsGoogleTranslateDetect_1.jpg)
 Takes list of strings and detects the language of each string using Google Translate service.
 
 - Detected language result is a string with three-letter code
