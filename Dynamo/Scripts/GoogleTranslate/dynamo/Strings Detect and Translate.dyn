@@ -1,0 +1,452 @@
+{
+  "Uuid": "7391330d-107d-4441-ba69-739e020d32d1",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "Strings Detect and Translate",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "\"\"\"Translate list of strings using Google Translate Service.\r\n\r\nIMPORTANT:\r\nFor CPython3.\r\nThis script uses module 'translatepy':\r\n    https://github.com/Animenosekai/translate\r\n\r\nMore about installing Python modules in Dynamo:\r\n    https://github.com/DynamoDS/Dynamo/wiki/Customizing-Dynamo%27s-Python-3-installation\r\n    https://forum.dynamobim.com/t/how-to-install-python-modules-in-dynamo-core-runtime-2-8-0/52922/32\r\n\r\nIt is better to define source/destination language by its three-letter code\r\n    according to ISO 639-2 / ISO 639-3:\r\n    https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes\r\n    Simple language names are also acceptable (\"English\", \"Japanese\", etc).\r\n\r\nIf source language was not provided,\r\n    service will try to define it automatically.\r\n    This way works better with strings of mixed languages.\r\n\r\nBy default translation is done via 'translate.google.com' server.\r\n    Feel free to change it to other suitable server in your region\r\n    using SERVER_URL constant.\r\n    Example: SERVER_URL = 'translate.google.cn'\r\n\r\nList of supported languages and servers can be found here:\r\n    https://github.com/Animenosekai/translate/blob/main/translatepy/translators/google.py\r\n\r\nBy default 'translatepy' caches translation results for better performance.\r\n    https://github.com/Animenosekai/translate#caching\r\n    Current script cleans the cash in the end of translation:\r\n    controlled via CLEAN_TRANSLATION_CASHE constant.\r\n    You may want to disable the cleaning.\r\n\r\nAs it is mentioned in 'translatepy' disclaimer:\r\n    Please do not use this module in a commercial manner.\r\n    Pay a proper API Key from one of the services to do so.\r\n    https://github.com/Animenosekai/translate#disclaimer\r\n\"\"\"\r\n\r\nimport re\r\nimport sys\r\nimport System\r\nimport requests\r\n\r\nre_dir = System.IO.DirectoryInfo(re.__file__)\r\npath_py3_lib = re_dir.Parent.Parent.FullName\r\nsys.path.append(path_py3_lib + r'\\Lib\\site-packages')\r\n\r\nfrom translatepy.translators.google import GoogleTranslate\r\n\r\n\r\ndef tolist(obj1):\r\n    \"\"\"Convert to list if not list.\"\"\"\r\n    if hasattr(obj1, '__iter__'):\r\n        return obj1\r\n    else:\r\n        return [obj1]\r\n\r\n\r\ndef assure_online(url):\r\n    response = requests.get(url)\r\n    response.raise_for_status()\r\n    return response.status_code\r\n\r\n\r\nsource_texts = tolist(IN[0])\r\nsource_lang = IN[1]\r\ndest_lang = IN[2]\r\n\r\nSERVER_URL = 'translate.google.com'\r\nCLEAN_TRANSLATION_CASHE = True\r\n\r\nif not source_lang:\r\n    source_lang = 'auto'\r\n\r\ncheck_url = assure_online(f'http://{SERVER_URL}')\r\n\r\ng_translate = GoogleTranslate(service_url=SERVER_URL)\r\n\r\ntranslations = []\r\nfor text in source_texts:\r\n    translation = g_translate.translate(text, dest_lang, source_lang).result\r\n    translations.append(translation)\r\n\r\nif CLEAN_TRANSLATION_CASHE is True:\r\n    g_translate.clean_cache()\r\n\r\nOUT = translations\r\n",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "746a05956795435b9f4ecd1c003ff946",
+      "Inputs": [
+        {
+          "Id": "64246c4a0f0f44d8b0f65b80c07db8b4",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e327fcd252d7404583d87f66ec168c0e",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ad5e9134ce634b8898cf9b973fb42e0b",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7614575d1e1142c7893902c1a9404722",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "1c6c824676f34b568ad3557dc9d51c1d",
+      "Inputs": [
+        {
+          "Id": "43050198f95e4baa89aa0b8b9bc23b89",
+          "Name": "",
+          "Description": "Node to show output from",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ea30b902a3d2472d837fa7e1d641e2c2",
+          "Name": "",
+          "Description": "Node output",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the node's output"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"Текст на русском\",\n\"中文文本\",\n\"Text in English und Deutsch\"];",
+      "Id": "cbbb53ce0fd54cb8a1155f573b0e8a44",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "461347ce335e4ceb8666315f614f5487",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "destination_lang: string = \"eng\";",
+      "Id": "6f98dc577c764818b2959369d9df1c45",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "23f133601ebc47008a8ab763441c279b",
+          "Name": "",
+          "Description": "destination_lang",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "source_lang: string = null;",
+      "Id": "cdbe71653a19458fb71cbde2686a3bca",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "68df631b797a4dd180cdd81ec449d8be",
+          "Name": "",
+          "Description": "source_lang",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "orig + \" [\" + transl + \"]\";",
+      "Id": "80ac4c7779864fc4a96582788d59b7ae",
+      "Inputs": [
+        {
+          "Id": "4d71e27a152b40d2bcf94eacf11daa89",
+          "Name": "orig",
+          "Description": "orig",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6b5eed94296d48d0b1b018182a37de1a",
+          "Name": "transl",
+          "Description": "transl",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "901ca8d760184ba98aa717d2970b67a8",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"Текст на русском\",\n\"中文文本\",\n\"Text in English und Deutsch\"];",
+      "Id": "789ceeafe13d4886b8061c30d190b609",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "33de09dd562a4edfbc5987f7d5e97676",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "\"\"\"Takes list of strings and detects the language of each string\r\n    using Google Translate Service.\r\n\r\nIMPORTANT:\r\nFor CPython3.\r\nThis script uses module 'translatepy':\r\n    https://github.com/Animenosekai/translate\r\n\r\nMore about installing Python modules in Dynamo:\r\n    https://github.com/DynamoDS/Dynamo/wiki/Customizing-Dynamo%27s-Python-3-installation\r\n    https://forum.dynamobim.com/t/how-to-install-python-modules-in-dynamo-core-runtime-2-8-0/52922/32\r\n\r\nDetected language result is a string with three-letter code\r\n    according to ISO 639-2 / ISO 639-3:\r\n    https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes\r\n\r\nBy default translation is done via 'translate.google.com' server.\r\n    Feel free to change it to other suitable server in your region\r\n    using SERVER_URL constant.\r\n    Example: SERVER_URL = 'translate.google.cn'\r\n\r\nList of supported languages and servers can be found here:\r\n    https://github.com/Animenosekai/translate/blob/main/translatepy/translators/google.py\r\n\r\nBy default 'translatepy' caches translation results for better performance.\r\n    https://github.com/Animenosekai/translate#caching\r\n    Current script cleans the cash in the end of translation:\r\n    controlled via CLEAN_TRANSLATION_CASHE constant.\r\n    You may want to disable the cleaning.\r\n\r\nAs it is mentioned in 'translatepy' disclaimer:\r\n    Please do not use this module in a commercial manner.\r\n    Pay a proper API Key from one of the services to do so.\r\n    https://github.com/Animenosekai/translate#disclaimer\r\n\"\"\"\r\n\r\nimport re\r\nimport sys\r\nimport System\r\nimport requests\r\n\r\nre_dir = System.IO.DirectoryInfo(re.__file__)\r\npath_py3_lib = re_dir.Parent.Parent.FullName\r\nsys.path.append(path_py3_lib + r'\\Lib\\site-packages')\r\n\r\nfrom translatepy.translators.google import GoogleTranslate\r\nfrom translatepy.models import LanguageResult\r\n\r\n\r\ndef tolist(obj1):\r\n    \"\"\"Convert to list if not list.\"\"\"\r\n    if hasattr(obj1, '__iter__'):\r\n        return obj1\r\n    else:\r\n        return [obj1]\r\n\r\n\r\ndef assure_online(url):\r\n    response = requests.get(url)\r\n    response.raise_for_status()\r\n    return response.status_code\r\n\r\n\r\nsource_texts = tolist(IN[0])\r\n\r\nSERVER_URL = 'translate.google.com'\r\nCLEAN_TRANSLATION_CASHE = True\r\n\r\ncheck_url = assure_online(f'http://{SERVER_URL}')\r\n\r\ng_translate = GoogleTranslate(service_url=SERVER_URL)\r\n\r\ndetected_langs = []\r\nfor text in source_texts:\r\n    detected_lang = g_translate.language(text).result\r\n    detected_langs.append(detected_lang)\r\n\r\nif CLEAN_TRANSLATION_CASHE is True:\r\n    g_translate.clean_cache()\r\n\r\nOUT = detected_langs\r\n",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "92ed5a5f23ae468390d9cc12af239caf",
+      "Inputs": [
+        {
+          "Id": "e47913e23d7a4bb59994dd25ab80f96a",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1c0560ec18d14a19be855d8bf176cd6c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "cbe4bb22a9444375abf1b6b3e2c31c4d",
+      "Inputs": [
+        {
+          "Id": "ee7a8946c09e4bd295663b283c153823",
+          "Name": "",
+          "Description": "Node to show output from",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d9b2bb349c5c4b7c8559fc42a64ff30e",
+          "Name": "",
+          "Description": "Node output",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the node's output"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7614575d1e1142c7893902c1a9404722",
+      "End": "43050198f95e4baa89aa0b8b9bc23b89",
+      "Id": "18bca2dab8e34a54940965e74d1e9153"
+    },
+    {
+      "Start": "7614575d1e1142c7893902c1a9404722",
+      "End": "6b5eed94296d48d0b1b018182a37de1a",
+      "Id": "6ecc48bbfc5247f49457681fb7dbcb6e"
+    },
+    {
+      "Start": "461347ce335e4ceb8666315f614f5487",
+      "End": "64246c4a0f0f44d8b0f65b80c07db8b4",
+      "Id": "8183421823c34e9fb6f8761f4f0a8094"
+    },
+    {
+      "Start": "461347ce335e4ceb8666315f614f5487",
+      "End": "4d71e27a152b40d2bcf94eacf11daa89",
+      "Id": "0728be332ccf41dc8b65b6425ad4bfdd"
+    },
+    {
+      "Start": "23f133601ebc47008a8ab763441c279b",
+      "End": "ad5e9134ce634b8898cf9b973fb42e0b",
+      "Id": "a85906663be54414ae44738299aba461"
+    },
+    {
+      "Start": "68df631b797a4dd180cdd81ec449d8be",
+      "End": "e327fcd252d7404583d87f66ec168c0e",
+      "Id": "b4919487a4e04324bca4a05d72459113"
+    },
+    {
+      "Start": "33de09dd562a4edfbc5987f7d5e97676",
+      "End": "e47913e23d7a4bb59994dd25ab80f96a",
+      "Id": "07f3205e8b9744e0ba99e2659cc68680"
+    },
+    {
+      "Start": "1c0560ec18d14a19be855d8bf176cd6c",
+      "End": "ee7a8946c09e4bd295663b283c153823",
+      "Id": "0cb104aa270740ad87cf938074babfc8"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.12",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.12.0.5650",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -2209.7348709106445,
+      "EyeY": 2559.840576171875,
+      "EyeZ": 10.310970306396484,
+      "LookX": 0.0,
+      "LookY": -2548.842041015625,
+      "LookZ": 0.0,
+      "UpX": 0.0,
+      "UpY": 0.0,
+      "UpZ": -1.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Strings.GoogleTranslate (Py)",
+        "Id": "746a05956795435b9f4ecd1c003ff946",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 289.47762255337022,
+        "Y": 675.991269074789
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "1c6c824676f34b568ad3557dc9d51c1d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 686.7096843704,
+        "Y": 676.186988403705
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "cbbb53ce0fd54cb8a1155f573b0e8a44",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -192.08468197584,
+        "Y": 344.340672605991
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "6f98dc577c764818b2959369d9df1c45",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -208.08468197584,
+        "Y": 691.963834330122
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "cdbe71653a19458fb71cbde2686a3bca",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -159.08468197584,
+        "Y": 555.225925775884
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "80ac4c7779864fc4a96582788d59b7ae",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 686.7096843704,
+        "Y": 344.340672605991
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "789ceeafe13d4886b8061c30d190b609",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -192.08468197584,
+        "Y": 1100.95534027298
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Strings.GoogleTranslateDetect (Py)",
+        "Id": "92ed5a5f23ae468390d9cc12af239caf",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 268.97762255337,
+        "Y": 1100.95534027298
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "cbe4bb22a9444375abf1b6b3e2c31c4d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 686.7096843704,
+        "Y": 1100.95534027298
+      }
+    ],
+    "Annotations": [],
+    "X": 546.006172547284,
+    "Y": -394.90523764246166,
+    "Zoom": 1.2841544309686497
+  }
+}
