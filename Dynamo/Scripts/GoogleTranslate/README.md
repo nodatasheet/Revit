@@ -18,8 +18,7 @@ ___
 
 ### StringsGoogleTranslate
 
-![вот так картинка видна](https://github.com/nodatasheet/Revit/blob/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslate_1.jpg)
-![а вот так - нет](images/StringsGoogleTranslateDetect_1.jpg)
+![StringsGoogleTranslate_1](images/StringsGoogleTranslate_1.jpg)
 
 
 [StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
@@ -51,7 +50,7 @@ ___
 
 ### StringsGoogleTranslateDetect
 
-![StringsGoogleTranslateDetect_1](https://github.com/nodatasheet/Revit/raw/main/Dynamo/Scripts/GoogleTranslate/images/StringsGoogleTranslateDetect_1.jpg)
+![StringsGoogleTranslateDetect_1](images/StringsGoogleTranslateDetect_1.jpg)
 
 [StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
 
