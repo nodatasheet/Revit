@@ -64,7 +64,7 @@ ___
 - By default translation is done via `translate.google.com` server. Feel free to change it to other suitable server in your region using `SERVER_URL` constant.\
     Example: `SERVER_URL = 'translate.google.cn'`
 
-- List of supported languages and servers can be found here:
+- List of supported languages and servers can be found here:\
     https://github.com/Animenosekai/translate/blob/main/translatepy/translators/google.py
 
 - By default translatepy [caches](https://github.com/Animenosekai/translate#caching) translation results for better performance.
