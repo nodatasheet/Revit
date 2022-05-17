@@ -13,10 +13,12 @@ ___
 
 ### Content
  1. [StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
- 2. [StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
+    Translates list of strings using Google Translate service.
+ 3. [StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
+    Takes list of strings and detects the language of each string using Google Translate service.
 
-
-### StringsGoogleTranslate
+___
+### 1. StringsGoogleTranslate
 
 ![StringsGoogleTranslate_1](images/StringsGoogleTranslate_1.jpg)
 
@@ -39,7 +41,7 @@ ___
     https://github.com/Animenosekai/translate/blob/main/translatepy/translators/google.py
 
 - By default translatepy [caches](https://github.com/Animenosekai/translate#caching) translation results for better performance.
-    Current script cleans the cash in the end of translation:
+    Current script cleans the caсhe in the end of translation:
     controlled via `CLEAN_TRANSLATION_CASHE` constant.\
     You may want to disable the cleaning.
 
@@ -48,7 +50,7 @@ ___
     Pay a proper API Key from one of the services to do so.
 ___
 
-### StringsGoogleTranslateDetect
+### 2. StringsGoogleTranslateDetect
 
 ![StringsGoogleTranslateDetect_1](images/StringsGoogleTranslateDetect_1.jpg)
 
@@ -66,7 +68,7 @@ ___
     https://github.com/Animenosekai/translate/blob/main/translatepy/translators/google.py
 
 - By default translatepy [caches](https://github.com/Animenosekai/translate#caching) translation results for better performance.
-    Current script cleans the cash in the end of translation:
+    Current script cleans the caсhe in the end of translation:
     controlled via `CLEAN_TRANSLATION_CASHE` constant.\
     You may want to disable the cleaning.
 
