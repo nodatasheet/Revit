@@ -34,7 +34,7 @@ ___
 - If source language was not provided, service will try to define it automatically.
     This way works better with strings of mixed languages.
 
-- By default translation is done via `translate.google.com` server. Feel free to change it to other suitable server in your region using SERVER_URL constant.\
+- By default translation is done via `translate.google.com` server. Feel free to change it to other suitable server in your region using `SERVER_URL` constant.\
     Example: `SERVER_URL = 'translate.google.cn'`
 
 - List of supported languages and servers can be found here:\
@@ -61,7 +61,7 @@ ___
 - Detected language result is a string with three-letter code according to ISO 639-2 / ISO 639-3:\
     https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
 
-- By default translation is done via `translate.google.com` server. Feel free to change it to other suitable server in your region using SERVER_URL constant.\
+- By default translation is done via `translate.google.com` server. Feel free to change it to other suitable server in your region using `SERVER_URL` constant.\
     Example: `SERVER_URL = 'translate.google.cn'`
 
 - List of supported languages and servers can be found here:
