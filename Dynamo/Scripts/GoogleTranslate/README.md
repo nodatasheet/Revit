@@ -13,7 +13,8 @@ ___
 
 ### StringsGoogleTranslate
 ![StringsGoogleTranslate_1.jpg](/images/StringsGoogleTranslate_1.jpg)
-Translates list of strings using Google Translate service.
+
+**Translates list of strings using Google Translate service.**
 
 - It is better to define source/destination language by its three-letter code
     according to ISO 639-2 / ISO 639-3:\
@@ -40,8 +41,9 @@ Translates list of strings using Google Translate service.
 ___
 
 ### StringsGoogleTranslateDetect
-![StringsGoogleTranslateDetect_1.jpg](images/StringsGoogleTranslateDetect_1.jpg)
-Takes list of strings and detects the language of each string using Google Translate service.
+![StringsGoogleTranslateDetect_1.jpg](/images/StringsGoogleTranslate_1.jpg)
+
+**Takes list of strings and detects the language of each string using Google Translate service.**
 
 - Detected language result is a string with three-letter code
     according to ISO 639-2 / ISO 639-3:
