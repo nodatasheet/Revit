@@ -12,9 +12,9 @@
 ___
 
 ### Content
- 1. [StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
+ 1. [StringsGoogleTranslate](\README.md#1-stringsgoogletranslate)
     Translates list of strings using Google Translate service.
- 3. [StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
+ 3. [StringsGoogleTranslateDetect](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
     Takes list of strings and detects the language of each string using Google Translate service.
 
 ___
