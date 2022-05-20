@@ -1,0 +1,3536 @@
+{
+  "Uuid": "3953021b-bb6d-4cd9-84fd-f9ca4facb826",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "2.x MaterialCreateNewByColorRAL",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "DesignScript.Builtin.Dictionary": {
+        "Key": "DesignScript.Builtin.Dictionary",
+        "Value": "DesignScriptBuiltin.dll"
+      },
+      "DSCore.List": {
+        "Key": "DSCore.List",
+        "Value": "DSCoreNodes.dll"
+      },
+      "Revit": {
+        "Key": "Rhythm.Revit.Selection.Selection",
+        "Value": "RhythmRevit.dll"
+      },
+      "Revit.Category": {
+        "Key": "Revit.Elements.Category",
+        "Value": "RevitNodes.dll"
+      },
+      "Revit.Elements.Category": {
+        "Key": "Revit.Elements.Category",
+        "Value": "RevitNodes.dll"
+      },
+      "DSCore.Data.Revit": {
+        "Key": "DSCore.Data",
+        "Value": "DSCoreNodes.dll"
+      },
+      "DSCore.Data": {
+        "Key": "DSCore.Data",
+        "Value": "DSCoreNodes.dll"
+      },
+      "DSCore.List.Empty": {
+        "Key": "DSCore.List",
+        "Value": "DSCoreNodes.dll"
+      }
+    }
+  },
+  "Inputs": [
+    {
+      "Id": "dba5478973444cfca85f6b2428f017c8",
+      "Name": "Description",
+      "Type": "string",
+      "Value": "Create new Generic Material using color from RAL Classic code. \r\n\r\nHow to:\r\n1) Input RAL code. If need several, input them separated by comma.\r\n3) Choose if want to have Color Name in Material Name?\r\n4) Reset Properties for Materials with RAL name already exist in Project?\r\n5) Run\r\n\r\nNew material Name: \"MF_Color RAL .... Color Name\"\r\n\r\nNotes: \r\nAppearance Asset is created by duplicating material with Name \"Default\". Check it in case any issues.\r\n\r\nIf some of RAL does not exist, script will stop.",
+      "Description": "Creates a string."
+    },
+    {
+      "Id": "dbb0347afa6d4299b41d3c5e00cced6c",
+      "Name": "Input RAL",
+      "Type": "string",
+      "Value": "2002, 2005",
+      "Description": "Creates a string."
+    },
+    {
+      "Id": "e17d9942fc614990b6ee1cdf0f08e8b1",
+      "Name": "Add Color Name to Material Name?",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "Id": "caf90521731b4b94b582cb6bfd5c6f62",
+      "Name": "Reset Existing RAL Materials?",
+      "Type": "boolean",
+      "Value": "false",
+      "Description": "Selection between a true and false."
+    }
+  ],
+  "Outputs": [
+    {
+      "Id": "e0260ca9c74f4e9a84cd698c7a2a5b4f",
+      "Name": "Color",
+      "Type": "unknown",
+      "InitialValue": "",
+      "Description": "Previews an image"
+    },
+    {
+      "Id": "99a0a6ccc3fa41cdaab6ea74f0761ff8",
+      "Name": "New Material",
+      "Type": "unknown",
+      "InitialValue": "",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "Id": "1028cf7fde364f3a870306e4e2d0159c",
+      "Name": "Material with this Name already exist in Project.",
+      "Type": "unknown",
+      "InitialValue": "",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.Create@string",
+      "Id": "8db40a2d42b146d2850c1ff9c872ff6d",
+      "Inputs": [
+        {
+          "Id": "69e86bd08da249b38dc16c7c34e028ef",
+          "Name": "name",
+          "Description": "Name of the material to be created.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1014d5ebcb7147d7911182dbca51741a",
+          "Name": "Material",
+          "Description": "Material",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates new Material by name.\n\nMaterials.Create (name: string): Material"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.SetAppearanceAsset@Revit.Elements.Material,Revit.Elements.Element",
+      "Id": "ec4ab17dc52549b8afd103d037cbe806",
+      "Inputs": [
+        {
+          "Id": "585bd55e744445c2b3847dbdf778094c",
+          "Name": "material",
+          "Description": "Material to set the Appearance Asset for.\n\nMaterial",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "04c6ab5624db47d6ab7fd1badb45a994",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset object.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a594978c1e344999b5d1cc0287abff2d",
+          "Name": "Material",
+          "Description": "Material",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Appearance Asset Element for the Material.\n\nMaterials.SetAppearanceAsset (material: Material, appearanceAsset: Element): Material"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.AppearanceAssets.CreateViaDuplicate@string",
+      "Id": "db8fcc37c6cd443db67b0f024fbee1f3",
+      "Inputs": [
+        {
+          "Id": "bf42ae082adc44d29f3547946a0005ae",
+          "Name": "name",
+          "Description": "Name of the Appearance Asset to be created.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "88cdf20b860e4d60a72757797303b237",
+          "Name": "Element",
+          "Description": "Element",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates a new Appearance Asset Element via Duplicating of Default material's Appearance Asset Element.\n\nAppearanceAssets.CreateViaDuplicate (name: string): Element"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.AppearanceAssets.SetGenericProperties@Revit.Elements.Element,DSCore.Color,int,bool",
+      "Id": "c29a202cdcf04eb79a1313ca998ce539",
+      "Inputs": [
+        {
+          "Id": "5d19ffc902c44ecba08bb7027b81ec87",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset to set the color for.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "efeeb0b53eba4f3c8d4539e4e82c09b0",
+          "Name": "color",
+          "Description": "Color that property will be set to.\n\nColor",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6509f7bbcc2f47eda91ed44f85822195",
+          "Name": "glossiness",
+          "Description": "Glossiness value from 1-100\n\nint\nDefault value : 50",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "48831c51f8da4b09ac2213964fb65ae3",
+          "Name": "metallic",
+          "Description": "In Revit this is called Highlights. Set to True for \"Metallic\" otherwise false.\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f396a5d607774c8ea4bf7c48424038b7",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset with adjusted properties.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Generic Properties of an Appearance Asset Element.\n\nAppearanceAssets.SetGenericProperties (appearanceAsset: Element, color: Color, glossiness: int = 50, metallic: bool = false): Element"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.Color.ByARGB@int,int,int,int",
+      "Id": "7651d25593674d7887c91339900b6022",
+      "Inputs": [
+        {
+          "Id": "245bc2a9a5854d1d8e7464f56c2ffc37",
+          "Name": "a",
+          "Description": "The alpha value.\n\nint\nDefault value : 255",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "12b53ae1a4014dc99229a97aa36490c9",
+          "Name": "r",
+          "Description": "The red value.\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8a0ca813193e43b1838c57c05870d271",
+          "Name": "g",
+          "Description": "The green value.\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "13fa0d4a0ce1465da50d490e0cf3a3fe",
+          "Name": "b",
+          "Description": "The blue value.\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7b87da1dd1554256abfb37b0ef4d52c6",
+          "Name": "color",
+          "Description": "Color.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Construct a color by alpha, red, green, and blue components.\n\nColor.ByARGB (a: int = 255, r: int = 0, g: int = 0, b: int = 0): Color"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.UseRenderAppearanceForShading@Revit.Elements.Material,bool",
+      "Id": "988ed8f6991645c7b1d43ffe3fddb66f",
+      "Inputs": [
+        {
+          "Id": "5b48df012faa448f9b47efb4b4f82b65",
+          "Name": "material",
+          "Description": "Material to set the property for.\n\nMaterial",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "85c7983f43224e0c819b8d6cec981f57",
+          "Name": "check",
+          "Description": "True if checkbox is to be checked, otherwise false.\n\nbool\nDefault value : true",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a082dd0b335b485b8184203a20d2dac7",
+          "Name": "material",
+          "Description": "Material with the adjusted property.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the checkbox property on the Material that would force the Appearance Color to be used for Shading display in Revit.\n\nMaterials.UseRenderAppearanceForShading (material: Material, check: bool = true): Material"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "//Take RGB values\nDSCore.List.GetItemAtIndex(RGB@L2<1>, 1);\nDSCore.List.GetItemAtIndex(RGB@L2<1>, 2);\nDSCore.List.GetItemAtIndex(RGB@L2<1>, 3);",
+      "Id": "977d6de0113940cc862c6a5922edef52",
+      "Inputs": [
+        {
+          "Id": "fc735bc8fe694a149282e0168979c7d3",
+          "Name": "RGB",
+          "Description": "RGB",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a2819b60de5b4e5da5413f84b340e1f4",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e3bc13a9f1554b0a97d317f6ef217304",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b5a3e46ab28d4134b9f400b08e194d7a",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "true;",
+      "Id": "a1f1c74a87794c1d8fa9126347606ef4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "50b6509327e245eaab7c0aa8bcbbf725",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.AppearanceAssets.SetTransparencyProperties@Revit.Elements.Element,int",
+      "Id": "e848f9129fea484fa91b5b5606fcc4a1",
+      "Inputs": [
+        {
+          "Id": "7ae41da0f973419f9463da8aa3b3c45a",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset to set the color for.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7b099a56289c4dceaf8d78b80c55f4a5",
+          "Name": "amount",
+          "Description": "Value from 1-100\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "633890a06e9c4a25bed6c56cb5146e68",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset with adjusted properties.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Transparency Properties of an Appearance Asset Element.\n\nAppearanceAssets.SetTransparencyProperties (appearanceAsset: Element, amount: int = 0): Element"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.AppearanceAssets.SetReflectivityProperties@Revit.Elements.Element,int,int",
+      "Id": "d37487e214e745fe9682ad59a2497b0a",
+      "Inputs": [
+        {
+          "Id": "6da96cc32e3545d4a3ea21bc9047b774",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset to set the color for.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c37e8ef75bbd4484a6e2195d4addde3b",
+          "Name": "directReflectivity",
+          "Description": "Value from 1-100\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "edcfa73022b34ee4847125e3dee70f63",
+          "Name": "obliqueReflectivity",
+          "Description": "Value from 1-100\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6a6f63a967d1416eb3a4f41cab6dc3a1",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset with adjusted properties.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Reflectivity Properties of an Appearance Asset Element.\n\nAppearanceAssets.SetReflectivityProperties (appearanceAsset: Element, directReflectivity: int = 0, obliqueReflectivity: int = 0): Element"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "asset;\n//reset what can//\n\ngl=50;\nmet=false;\ndRefl=0;\noRefl=0;\ntransp=0;",
+      "Id": "ef8ade4cd6c54b5c84624d4ac80492a5",
+      "Inputs": [
+        {
+          "Id": "5d4f19a9ae3c46d3ad5677eb403bb22d",
+          "Name": "asset",
+          "Description": "asset",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b589c0edce2341a483a2e63092b02a17",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bfd71fa6d2eb4e6f92a3214a41cf4717",
+          "Name": "",
+          "Description": "gl",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "af17599a3fae443ca5f6f26442f83575",
+          "Name": "",
+          "Description": "met",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "36df24e26fc941cc83251c9ef4aec087",
+          "Name": "",
+          "Description": "dRefl",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "06c7be9448ee46189e4bbe591369fbdd",
+          "Name": "",
+          "Description": "oRefl",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b46afdbbfe834c95b09567b749327aa7",
+          "Name": "",
+          "Description": "transp",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.AppearanceAssets.SetGenericProperties@Revit.Elements.Element,DSCore.Color,int,bool",
+      "Id": "5fd3127bdb9d4764a8d18b347a121032",
+      "Inputs": [
+        {
+          "Id": "08386409d9824b19a235299ac1471d6f",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset to set the color for.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e8b5374ef6db4cc48c419d7beb1546ae",
+          "Name": "color",
+          "Description": "Color that property will be set to.\n\nColor",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e91ded718963480399822480221aa6fc",
+          "Name": "glossiness",
+          "Description": "Glossiness value from 1-100\n\nint\nDefault value : 50",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5ec0de5ae2464601b6cca9767e521b5a",
+          "Name": "metallic",
+          "Description": "In Revit this is called Highlights. Set to True for \"Metallic\" otherwise false.\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3d8cf777d8134333a63071f60a647e12",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset with adjusted properties.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Generic Properties of an Appearance Asset Element.\n\nAppearanceAssets.SetGenericProperties (appearanceAsset: Element, color: Color, glossiness: int = 50, metallic: bool = false): Element"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "Create new Generic Material using color from RAL Classic code. \r\n\r\nHow to:\r\n1) Input RAL code. If need several, input them separated by comma.\r\n3) Choose if want to have Color Name in Material Name?\r\n4) Reset Properties for Materials with RAL name already exist in Project?\r\n5) Run\r\n\r\nNew material Name: \"MF_Color RAL .... Color Name\"\r\n\r\nNotes: \r\nAppearance Asset is created by duplicating material with Name \"Default\". Check it in case any issues.\r\n\r\nIf some of RAL does not exist, script will stop.",
+      "Id": "dba5478973444cfca85f6b2428f017c8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "46e0c9e9675748b68bf07a5fbc093bd8",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "2002, 2005",
+      "Id": "dbb0347afa6d4299b41d3c5e00cced6c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "143a4a8391f945dd94fda7c1acdf46fc",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.WatchImageCore, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "e0260ca9c74f4e9a84cd698c7a2a5b4f",
+      "Inputs": [
+        {
+          "Id": "29e4cc9c64114142a8ce1098414f47e6",
+          "Name": "image",
+          "Description": "image",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "119867c0a7ef453bb77d1b99a880cbf6",
+          "Name": "image",
+          "Description": "image",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Previews an image"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.IO.Image.FromPixels@DSCore.Color[][]",
+      "Id": "7a1ddabab54c43a28d628c8668086180",
+      "Inputs": [
+        {
+          "Id": "89830bb4bc134f21a3a7c45c4462471b",
+          "Name": "colors",
+          "Description": "2d rectangular list of colors representing the pixels.\n\nColor[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7197c8c699064fe683b974cafb0fba9f",
+          "Name": "image",
+          "Description": "Image",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Constructs an image from a 2d list of pixels.\n\nImage.FromPixels (colors: Color[][]): var"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#RAL Classic color to sRGB from wiki: https://en.wikipedia.org/wiki/List_of_RAL_colors\r\n#except RAL 2017 and RAL 9012, they are from https://ral-colours.co.uk/ral-search/\r\n\r\nRAL = {\"1000\":[\"Green beige\",201,187,136],\r\n\"1001\":[\"Beige\",204,176,131],\r\n\"1002\":[\"Sand yellow\",205,170,109],\r\n\"1003\":[\"Signal yellow\",242,169,0],\r\n\"1004\":[\"Golden yellow\",221,159,0],\r\n\"1005\":[\"Honey yellow\",197,143,0],\r\n\"1006\":[\"Maize yellow\",219,145,0],\r\n\"1007\":[\"Daffodil yellow\",226,141,0],\r\n\"1011\":[\"Brown beige\",171,129,79],\r\n\"1012\":[\"Lemon yellow\",214,176,37],\r\n\"1013\":[\"Oyster white\",225,218,199],\r\n\"1014\":[\"Ivory\",217,197,154],\r\n\"1015\":[\"Light ivory\",227,211,181],\r\n\"1016\":[\"Sulfur yellow\",232,222,53],\r\n\"1017\":[\"Saffron yellow\",240,170,80],\r\n\"1018\":[\"Zinc yellow\",242,203,46],\r\n\"1019\":[\"Grey beige\",162,143,122],\r\n\"1020\":[\"Olive yellow\",157,143,101],\r\n\"1021\":[\"Rape yellow\",238,183,0],\r\n\"1023\":[\"Traffic yellow\",239,183,0],\r\n\"1024\":[\"Ochre yellow\",181,144,75],\r\n\"1026\":[\"Luminous yellow\",255,255,0],\r\n\"1027\":[\"Curry\",162,128,12],\r\n\"1028\":[\"Melon yellow\",255,156,0],\r\n\"1032\":[\"Broom yellow\",219,164,0],\r\n\"1033\":[\"Dahlia yellow\",243,155,27],\r\n\"1034\":[\"Pastel yellow\",230,157,81],\r\n\"1035\":[\"Pearl beige\",142,131,112],\r\n\"1036\":[\"Pearl gold\",125,101,63],\r\n\"1037\":[\"Sun yellow\",234,147,0],\r\n\"2000\":[\"Yellow orange\",213,111,0],\r\n\"2001\":[\"Red orange\",182,72,28],\r\n\"2002\":[\"Vermilion\",188,56,35],\r\n\"2003\":[\"Pastel orange\",241,120,41],\r\n\"2004\":[\"Pure orange\",222,83,6],\r\n\"2005\":[\"Luminous orange\",255,75,17],\r\n\"2007\":[\"Luminous bright orange\",255,183,0],\r\n\"2008\":[\"Bright red orange\",232,107,34],\r\n\"2009\":[\"Traffic orange\",218,83,10],\r\n\"2010\":[\"Signal orange\",204,93,41],\r\n\"2011\":[\"Deep orange\",221,110,15],\r\n\"2012\":[\"Salmon orange\",209,101,78],\r\n\"2013\":[\"Pearl orange\",143,62,38],\r\n\"2017\":[\"Orange\",250,68,2],\r\n\"3000\":[\"Flame red\",164,40,33],\r\n\"3001\":[\"Signal red\",152,35,35],\r\n\"3002\":[\"Carmine red\",152,34,34],\r\n\"3003\":[\"Ruby red\",132,25,34],\r\n\"3004\":[\"Purple red\",105,27,35],\r\n\"3005\":[\"Wine red\",88,24,31],\r\n\"3007\":[\"Black red\",61,32,34],\r\n\"3009\":[\"Oxide red\",102,48,41],\r\n\"3011\":[\"Brown red\",119,36,36],\r\n\"3012\":[\"Beige red\",194,133,109],\r\n\"3013\":[\"Tomato red\",149,46,37],\r\n\"3014\":[\"Antique pink\",201,115,117],\r\n\"3015\":[\"Light pink\",215,160,166],\r\n\"3016\":[\"Coral red\",164,60,48],\r\n\"3017\":[\"Rose\",200,84,93],\r\n\"3018\":[\"Strawberry red\",196,62,74],\r\n\"3020\":[\"Traffic red\",184,29,19],\r\n\"3022\":[\"Salmon pink\",204,105,85],\r\n\"3024\":[\"Luminous red\",255,42,36],\r\n\"3026\":[\"Luminous bright red\",255,38,32],\r\n\"3027\":[\"Raspberry red\",169,38,61],\r\n\"3028\":[\"Pure red\",201,43,38],\r\n\"3031\":[\"Orient red\",164,51,56],\r\n\"3032\":[\"Pearl ruby red\",110,28,36],\r\n\"3033\":[\"Pearl pink\",162,57,46],\r\n\"4001\":[\"Red lilac\",131,96,131],\r\n\"4002\":[\"Red violet\",140,60,75],\r\n\"4003\":[\"Heather violet\",196,96,140],\r\n\"4004\":[\"Claret violet\",100,29,57],\r\n\"4005\":[\"Blue lilac\",123,103,154],\r\n\"4006\":[\"Traffic purple\",145,48,115],\r\n\"4007\":[\"Purple violet\",71,36,60],\r\n\"4008\":[\"Signal violet\",135,75,131],\r\n\"4009\":[\"Pastel violet\",157,133,146],\r\n\"4010\":[\"Telemagenta\",187,62,119],\r\n\"4011\":[\"Pearl violet\",113,98,135],\r\n\"4012\":[\"Pearl blackberry\",109,107,127],\r\n\"5000\":[\"Violet blue\",56,78,111],\r\n\"5001\":[\"Green blue\",29,76,100],\r\n\"5002\":[\"Ultramarine blue\",30,54,123],\r\n\"5003\":[\"Sapphire blue\",38,56,85],\r\n\"5004\":[\"Black blue\",26,30,40],\r\n\"5005\":[\"Signal blue\",0,81,135],\r\n\"5007\":[\"Brilliant blue\",66,106,140],\r\n\"5008\":[\"Grey blue\",45,58,68],\r\n\"5009\":[\"Azure blue\",45,94,120],\r\n\"5010\":[\"Gentian blue\",0,78,124],\r\n\"5011\":[\"Steel blue\",30,43,61],\r\n\"5012\":[\"Light blue\",46,136,182],\r\n\"5013\":[\"Cobalt blue\",34,48,83],\r\n\"5014\":[\"Pigeon blue\",104,124,150],\r\n\"5015\":[\"Sky blue\",11,123,176],\r\n\"5017\":[\"Traffic blue\",0,90,140],\r\n\"5018\":[\"Turquoise blue\",27,139,140],\r\n\"5019\":[\"Capri blue\",15,93,132],\r\n\"5020\":[\"Ocean blue\",0,65,75],\r\n\"5021\":[\"Water blue\",0,117,119],\r\n\"5022\":[\"Night blue\",43,44,90],\r\n\"5023\":[\"Distant blue\",74,104,141],\r\n\"5024\":[\"Pastel blue\",103,146,172],\r\n\"5025\":[\"Pearl Gentian blue\",44,105,124],\r\n\"5026\":[\"Pearl night blue\",27,47,82],\r\n\"6000\":[\"Patina green\",59,116,96],\r\n\"6001\":[\"Emerald green\",49,104,52],\r\n\"6002\":[\"Leaf green\",45,90,39],\r\n\"6003\":[\"Olive green\",78,83,59],\r\n\"6004\":[\"Blue green\",8,68,66],\r\n\"6005\":[\"Moss green\",17,66,50],\r\n\"6006\":[\"Grey olive\",59,57,46],\r\n\"6007\":[\"Bottle green\",42,50,34],\r\n\"6008\":[\"Brown green\",54,52,42],\r\n\"6009\":[\"Fir green\",39,54,42],\r\n\"6010\":[\"Grass green\",72,111,56],\r\n\"6011\":[\"Reseda green\",105,125,88],\r\n\"6012\":[\"Black green\",48,61,58],\r\n\"6013\":[\"Reed green\",122,118,90],\r\n\"6014\":[\"Yellow olive\",70,65,53],\r\n\"6015\":[\"Black olive\",60,61,54],\r\n\"6016\":[\"Turquoise green\",0,106,76],\r\n\"6017\":[\"May green\",83,128,63],\r\n\"6018\":[\"Yellow green\",89,154,57],\r\n\"6019\":[\"Pastel green\",183,206,172],\r\n\"6020\":[\"Chrome green\",54,66,47],\r\n\"6021\":[\"Pale green\",135,154,119],\r\n\"6022\":[\"Olive-drab/brown olive\",57,51,39],\r\n\"6024\":[\"Traffic green\",0,132,80],\r\n\"6025\":[\"Fern green\",90,110,59],\r\n\"6026\":[\"Opal green\",0,95,78],\r\n\"6027\":[\"Light green\",128,186,181],\r\n\"6028\":[\"Pine green\",48,84,66],\r\n\"6029\":[\"Mint green\",0,112,60],\r\n\"6032\":[\"Signal green\",28,128,81],\r\n\"6033\":[\"Mint turquoise\",72,135,127],\r\n\"6034\":[\"Pastel turquoise\",124,173,172],\r\n\"6035\":[\"Pearl green\",19,77,36],\r\n\"6036\":[\"Pearl opal green\",7,88,75],\r\n\"6037\":[\"Pure green\",0,140,39],\r\n\"6038\":[\"Luminous green\",0,182,18],\r\n\"7000\":[\"Squirrel grey\",123,136,142],\r\n\"7001\":[\"Silver grey\",142,150,157],\r\n\"7002\":[\"Olive grey\",127,120,99],\r\n\"7003\":[\"Moss grey\",120,119,105],\r\n\"7004\":[\"Signal grey\",155,155,155],\r\n\"7005\":[\"Mouse grey\",107,110,107],\r\n\"7006\":[\"Beige grey\",117,106,94],\r\n\"7008\":[\"Khaki grey\",114,95,60],\r\n\"7009\":[\"Green grey\",92,96,88],\r\n\"7010\":[\"Tarpaulin grey\",88,92,86],\r\n\"7011\":[\"Iron grey\",83,89,93],\r\n\"7012\":[\"Basalt grey\",88,93,94],\r\n\"7013\":[\"Brown grey\",86,80,68],\r\n\"7015\":[\"Slate grey\",80,83,89],\r\n\"7016\":[\"Anthracite grey\",56,62,66],\r\n\"7021\":[\"Black grey\",48,50,52],\r\n\"7022\":[\"Umbra grey\",76,74,68],\r\n\"7023\":[\"Concrete grey\",127,128,118],\r\n\"7024\":[\"Graphite grey\",70,73,79],\r\n\"7026\":[\"Granite grey\",56,67,69],\r\n\"7030\":[\"Stone grey\",145,142,133],\r\n\"7031\":[\"Blue grey\",93,104,109],\r\n\"7032\":[\"Pebble grey\",180,176,161],\r\n\"7033\":[\"Cement grey\",126,130,116],\r\n\"7034\":[\"Yellow grey\",144,136,111],\r\n\"7035\":[\"Light grey\",197,199,196],\r\n\"7036\":[\"Platinum grey\",151,147,146],\r\n\"7037\":[\"Dusty grey\",122,123,122],\r\n\"7038\":[\"Agate grey\",175,177,169],\r\n\"7039\":[\"Quartz grey\",106,102,94],\r\n\"7040\":[\"Window grey\",152,158,161],\r\n\"7042\":[\"Traffic grey A\",142,146,145],\r\n\"7043\":[\"Traffic grey B\",79,82,80],\r\n\"7044\":[\"Silk grey\",182,179,168],\r\n\"7045\":[\"Telegrey 1\",142,146,149],\r\n\"7046\":[\"Telegrey 2\",127,134,138],\r\n\"7047\":[\"Telegrey 4\",200,200,199],\r\n\"7048\":[\"Pearl mouse grey\",128,123,115],\r\n\"8000\":[\"Green brown\",134,106,62],\r\n\"8001\":[\"Ochre brown\",153,99,43],\r\n\"8002\":[\"Signal brown\",119,77,62],\r\n\"8003\":[\"Clay brown\",124,75,39],\r\n\"8004\":[\"Copper brown\",138,73,49],\r\n\"8007\":[\"Fawn brown\",109,70,43],\r\n\"8008\":[\"Olive brown\",111,74,37],\r\n\"8011\":[\"Nut brown\",88,56,39],\r\n\"8012\":[\"Red brown\",100,51,43],\r\n\"8014\":[\"Sepia brown\",72,53,38],\r\n\"8015\":[\"Chestnut brown\",93,47,39],\r\n\"8016\":[\"Mahogany brown\",75,43,32],\r\n\"8017\":[\"Chocolate brown\",67,47,41],\r\n\"8019\":[\"Grey brown\",61,54,53],\r\n\"8022\":[\"Black brown\",26,23,25],\r\n\"8023\":[\"Orange brown\",160,87,41],\r\n\"8024\":[\"Beige brown\",118,80,56],\r\n\"8025\":[\"Pale brown\",115,88,71],\r\n\"8028\":[\"Terra brown\",79,58,42],\r\n\"8029\":[\"Pearl copper\",125,64,49],\r\n\"9001\":[\"Cream\",231,225,210],\r\n\"9002\":[\"Grey white\",214,213,203],\r\n\"9003\":[\"Signal white\",236,236,231],\r\n\"9004\":[\"Signal black\",43,43,44],\r\n\"9005\":[\"Jet black\",14,14,16],\r\n\"9006\":[\"White aluminium\",161,161,160],\r\n\"9007\":[\"Grey aluminium\",134,133,129],\r\n\"9010\":[\"Pure white\",240,237,225],\r\n\"9011\":[\"Graphite black\",39,41,43],\r\n\"9012\":[\"Clean room white\",255,253,230],\r\n\"9016\":[\"Traffic white\",240,241,234],\r\n\"9017\":[\"Traffic black\",42,41,42],\r\n\"9018\":[\"Papyrus white\",199,203,196],\r\n\"9022\":[\"Pearl light grey\",133,133,131],\r\n\"9023\":[\"Pearl dark grey\",121,123,123]}\r\n\r\nOUT = RAL",
+      "VariableInputPorts": true,
+      "Id": "5d0dbdc38914418a949456609764219f",
+      "Inputs": [
+        {
+          "Id": "deac67541f6f4feb870d33b342d3b1b9",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e07b27efc0d44219a6d6c82a4e2bf9d8",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DesignScript.Builtin.Dictionary.ValueAtKey@string",
+      "Id": "e171a243b13745919b3ff2482bae8544",
+      "Inputs": [
+        {
+          "Id": "df27eb42771b40cc8bcb6fec846ffc45",
+          "Name": "dictionary",
+          "Description": "DesignScript.Builtin.Dictionary",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b8f8d6d575f44a22948c263d1ae8135b",
+          "Name": "key",
+          "Description": "The key in the Dictionary to obtain.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "78125dd5b6a24743bb11298bca418f76",
+          "Name": "value",
+          "Description": "The value at the specified key or null if it is not set.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Obtain the value at a specified key\n\nDictionary.ValueAtKey (key: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "e17d9942fc614990b6ee1cdf0f08e8b1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a1981980daa44038851a02d8a40218a4",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Generate Names for Materials and Appearance Assets acc to RAL code\r\n\r\nRALcode = IN[0] #RAL Code\r\ncolName = IN[1] #Color Name\r\nstate = IN[2] #bool\r\n\r\n## convert item to list if it is not list\r\ndef makeList(item): \r\n    item = item if isinstance(item, list) else [item]\r\n    return item\r\n\r\nRALcode = makeList(RALcode)\r\ncolName = makeList(colName)\r\n\r\nmNames = [] #Material Names\r\naNames = [] #Appearance Asset Names\r\n\r\nfor r,c in zip(RALcode, colName):\r\n    if c == None: ##Exception for null\r\n        raise Exception(\"null input is not allowed. Check your input, probably some RAL does not exist\")\r\n    elif state: #Names with RAL Code and Name\r\n        mNam = \"MF_Color RAL \" + str(r) + \" \" + c\r\n        aNam = \"MF_Color RAL \" + str(r) + \" \" + c\r\n    else: #Names with RAL Code only\r\n        mNam = \"MF_Color RAL \" + str(r)\r\n        aNam = \"MF_Color RAL \" + str(r)\r\n\r\n    mNames.append(mNam)\r\n    aNames.append(aNam)\r\n\r\nOUT = mNames, aNames",
+      "VariableInputPorts": true,
+      "Id": "568a0953edb54ca0845e45b0de6a6455",
+      "Inputs": [
+        {
+          "Id": "235b15f8bced425fa222c9244d3b16e3",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "77e8fdc91b2b4d4b95dae5b95cc6c44b",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f12f09e819a5492485a53d246d85d082",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4ae82d9ee3914f8bb0f60a3179164761",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "//matName\nDSCore.List.GetItemAtIndex(makeName@L2<0>, 0);\n//assetName\nDSCore.List.GetItemAtIndex(makeName@L2<0>, 1);",
+      "Id": "eef0f3d021064018822f62135fe89f7b",
+      "Inputs": [
+        {
+          "Id": "23a8e06e06a74ac9aa77aebab1ecfd59",
+          "Name": "makeName",
+          "Description": "makeName",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1354ac3744464c2da4fd5fed865afd92",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2b7d51f277684e93bb9aeaa2adb08a7c",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSVarArgFunction, DynamoCore",
+      "FunctionSignature": "DSCore.String.Split@string,string[]",
+      "FunctionType": "VariableArgument",
+      "NodeType": "FunctionNode",
+      "Id": "8756292c9dc7405babe6af323dd5eda8",
+      "Inputs": [
+        {
+          "Id": "19507bfb2d754ebca2b34ce5f4b9e6eb",
+          "Name": "str",
+          "Description": "String to split up.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7d6ec26fef2540d68689c9a3d0b20665",
+          "Name": "separator0",
+          "Description": "Strings that, if present, determine the end and start of a split.\n\nstring[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5ad3fdca6b5c4560a4743b2593f0b143",
+          "Name": "strings",
+          "Description": "List of strings made from the input string.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Divides a single string into a list of strings, with divisions determined by the given separator strings.\n\nString.Split (str: string, separators: string[]): string[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\",\";",
+      "Id": "a8e260e5d9ee40f3b01d07db8adb6b49",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b3fce1305f5d4ebbadc44774c3d85ad8",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.String.Replace@string,string,string",
+      "Id": "ecd3ce9faccf45a88bf13735662ffefc",
+      "Inputs": [
+        {
+          "Id": "62cdd961e0f6416a833085042cd76cfd",
+          "Name": "str",
+          "Description": "String to replace substrings in.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b8aca20dc7264f68b951b90c566a5d69",
+          "Name": "searchFor",
+          "Description": "Text to be replaced.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c66e3dec561146f4b5b1769068ceb507",
+          "Name": "replaceWith",
+          "Description": "Text to replace with.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "165204f2b80043b0a8658e5e4cf3752a",
+          "Name": "str",
+          "Description": "String with replacements made.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Replaces all occurrences of text in a string with other text.\n\nString.Replace (str: string, searchFor: string, replaceWith: string): string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\" \";\n\"\";",
+      "Id": "146ce81b2da0414381e3d53d1d5518c6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ed98510f939942f3b8a26758a6fb8855",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c5acb8b5ad0d41ceb07e312fdab2103e",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "#Reset Material Properties to default\n\nimport clr\nclr.AddReference('RevitAPI')\nimport Autodesk\nfrom Autodesk.Revit.DB import *\n\nclr.AddReference(\"RevitNodes\")\nimport Revit\nclr.ImportExtensions(Revit.Elements)\n\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\n## convert item to list if it is not list\ndef toList(item): \n    item = item if isinstance(item, list) else [item]\n    return item\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\nrevVer=int(app.VersionNumber)\n\nstate = IN[0] #bool\nmaterials = UnwrapElement(toList(IN[1]))\n\nif state:\n\n    TransactionManager.Instance.EnsureInTransaction(doc)\n\n    for m in materials:\n        if revVer < 2019:\n            m.UseRenderAppearanceForShading = False\n            m.Color = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.SurfacePatternId = surfaceForegroundPattern.Id\n            m.SurfacePatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.SurfacePatternId = ElementId.InvalidElementId\n            m.SurfacePatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.CutPatternId = ElementId.InvalidElementId\n            m.CutPatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.CutPatternId = ElementId.InvalidElementId\n            m.CutPatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n\n        else:\n            m.UseRenderAppearanceForShading = False\n            m.Color = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.SurfaceForegroundPatternId = ElementId.InvalidElementId\n            m.SurfaceForegroundPatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.SurfaceBackgroundPatternId = ElementId.InvalidElementId\n            m.SurfaceBackgroundPatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.CutForegroundPatternId = ElementId.InvalidElementId\n            m.CutForegroundPatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n            m.CutBackgroundPatternId = ElementId.InvalidElementId\n            m.CutBackgroundPatternColor = Autodesk.Revit.DB.Color.InvalidColorValue\n\n    TransactionManager.Instance.TransactionTaskDone()\n\nelse:\n    IN[1] = []#empty list if state is false\n\nOUT = IN[1]",
+      "VariableInputPorts": true,
+      "Id": "a331a1bdfd5c4534a0789ddc6494c733",
+      "Inputs": [
+        {
+          "Id": "2893661e5aad43ff9be750d5a716f60c",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "525789bb1bd04ed3890fb3ef071fec81",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "22be36cbdee24a68b68b59b4896fcc10",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "caf90521731b4b94b582cb6bfd5c6f62",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2b9a1412fdad44daa13e4c7fac14b093",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Revit.Category.ByName(\"Materials\");",
+      "Id": "637b52979c1e41c197fd161adea8dda3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e45b169980d04841ba3f198c43387959",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementsOfCategory, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "Id": "da763679a3a844c4a06a24bdf2f3d1db",
+      "Inputs": [
+        {
+          "Id": "fa5db5b03f0445e3a8c1a50efb9bb3bf",
+          "Name": "Category",
+          "Description": "The Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b46019ac42174a07aae3ea7bb1201453",
+          "Name": "Elements",
+          "Description": "An element type.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Get all elements of the specified category from the model."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Material.Name",
+      "Id": "4592662050bf4ceb9b82e82006ecf18f",
+      "Inputs": [
+        {
+          "Id": "66b2ef4cc1f2421687bc69bddb731f7a",
+          "Name": "material",
+          "Description": "Revit.Elements.Material",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9cedad8ca7f3407890109202fcd37a73",
+          "Name": "string",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get Material Name\n\nMaterial.Name: string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "mN;\naN;",
+      "Id": "c142ac777cdf45f68fd7e920362d2b2d",
+      "Inputs": [
+        {
+          "Id": "863158e3830147578a01ca4e96bc2a90",
+          "Name": "mN",
+          "Description": "mN",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8dfd7c21c5394bb985a9614aba378110",
+          "Name": "aN",
+          "Description": "aN",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9bac8a20006647269baad5078d79343e",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "909df0e7232847239983fdc6f721de45",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "9b6d14b17f844d00bb18b7052e8ce60a",
+      "Inputs": [
+        {
+          "Id": "6bb0e9729c8441df988f5ab2815125ab",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": true,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2d913a4fdb754cc6b97b39a13a862ef8",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "20a52ff45eec465d9bca26c3e5539d25",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 0.0,
+      "Id": "ebccfd96ff464fa5b563a076ed12698d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b84d9726429b4b84a5fc1404b866838e",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a number."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.SetIntersection@var[],var[]",
+      "Id": "18ff40c6872441b5a65bb3c217ce7a68",
+      "Inputs": [
+        {
+          "Id": "fd7637962d1544cba2f2502cf312d099",
+          "Name": "list1",
+          "Description": "List of objects to be compared with list2.\n\nvar[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "55166b122d8d46deace3f11a0ffe3cf4",
+          "Name": "list2",
+          "Description": "List of objects to be compared with list1.\n\nvar[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8573f9b20c884d06bc66d9f53d312d42",
+          "Name": "newList",
+          "Description": "The new list that contains objects that are in both List1 and List2.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns a new list that includes objects that are present in both List1 and List2.\n\nList.SetIntersection (list1: var[], list2: var[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.AppearanceAssets.SetGenericProperties@Revit.Elements.Element,DSCore.Color,int,bool",
+      "Id": "735e3f85f2c141cea5830a50a8955e6b",
+      "Inputs": [
+        {
+          "Id": "67ea09f70743448a91f02f324cfc39e2",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset to set the color for.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "368c2050156545ffa3eedf366170d376",
+          "Name": "color",
+          "Description": "Color that property will be set to.\n\nColor",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8e51322a3b394e7488bf02f10f1827a2",
+          "Name": "glossiness",
+          "Description": "Glossiness value from 1-100\n\nint\nDefault value : 50",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "dd9f157c421f403a8e181aeed458c3d5",
+          "Name": "metallic",
+          "Description": "In Revit this is called Highlights. Set to True for \"Metallic\" otherwise false.\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ef8dd7bdae4b4575b8a9e310af92ef9b",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset with adjusted properties.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Generic Properties of an Appearance Asset Element.\n\nAppearanceAssets.SetGenericProperties (appearanceAsset: Element, color: Color, glossiness: int = 50, metallic: bool = false): Element"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.SetDifference@var[],var[]",
+      "Id": "51c68f0598c34aaf830e32fbeeb30e48",
+      "Inputs": [
+        {
+          "Id": "3d8e655c98ed482fa6751c01aa5b917f",
+          "Name": "list1",
+          "Description": "List of objects to be included in the new list.\n\nvar[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bb990cfbcfea4da783a043c9e187f9db",
+          "Name": "list2",
+          "Description": "List of objects to be excluded in the new list.\n\nvar[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9015df5fa09342619c123611563b9f92",
+          "Name": "newList",
+          "Description": "The new list that contains objects in List1 but not in List2.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns a new list that includes objects in List1 but excludes objects in List2.\n\nList.SetDifference (list1: var[], list2: var[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "c;",
+      "Id": "3fb6183f4bb745f798ccfc96491ff8a3",
+      "Inputs": [
+        {
+          "Id": "55df8f3d43c346aabe4e74b223baf0dd",
+          "Name": "c",
+          "Description": "c",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "21502a8be7b04707aa35c2abe3924285",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.IndexOf@var[]..[],var",
+      "Id": "30b143ec6026457d97400228feb2eba0",
+      "Inputs": [
+        {
+          "Id": "d65a56920d2340bb9c82ddc378fb4ac8",
+          "Name": "list",
+          "Description": "The list to find the element in.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4509e874f7ab4f54976f2c1671adfdb4",
+          "Name": "element",
+          "Description": "The element whose index is to be returned.\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2356b735a8354a58ac81d2a23a34f623",
+          "Name": "int",
+          "Description": "The index of the element in the list.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns the index of the element in the given list.\n\nList.IndexOf (list: var[]..[], element: var): int"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "559f4d12ef0e4753823e798ea6f67d4a",
+      "Inputs": [
+        {
+          "Id": "def12b721af549bfb780fbfc1ae890f9",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a727f993f5f64fad9e1bc14d7eda27eb",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "099cf985b1ea4fa989565e9e0c909dbf",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.IndexOf@var[]..[],var",
+      "Id": "ba2f9eabeb5d45f0abe8393a50c386ac",
+      "Inputs": [
+        {
+          "Id": "368150c4849f44f690a1b69a1e8cd598",
+          "Name": "list",
+          "Description": "The list to find the element in.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "17dd9c102e8a4f6bb97b61f19f1b46a9",
+          "Name": "element",
+          "Description": "The element whose index is to be returned.\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a95f6a4a2e8845bea3e2470e5eebfa7f",
+          "Name": "int",
+          "Description": "The index of the element in the list.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns the index of the element in the given list.\n\nList.IndexOf (list: var[]..[], element: var): int"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "d98c2c4865d045229288b42d3db3009f",
+      "Inputs": [
+        {
+          "Id": "a972633f719d448e8422fbb966ba4873",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "900ce9cefc904059b8e37f168133c16d",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "743c95175bb24b149bc052113530f8db",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.IndexOf@var[]..[],var",
+      "Id": "9065947f028740f2bf2e609e486d6ddb",
+      "Inputs": [
+        {
+          "Id": "ca8d77bbf464462e818f05eb151acc15",
+          "Name": "list",
+          "Description": "The list to find the element in.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "36fe7c13e04343cdb3ebb5d73cd26aee",
+          "Name": "element",
+          "Description": "The element whose index is to be returned.\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "03f830329e344e28887203aa2fb36044",
+          "Name": "int",
+          "Description": "The index of the element in the list.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns the index of the element in the given list.\n\nList.IndexOf (list: var[]..[], element: var): int"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "aN;\nmN;\nomN;",
+      "Id": "eb56659870814759bab5ca1830184b34",
+      "Inputs": [
+        {
+          "Id": "5a6b6a6ad8f947a6bffd73c7467f3d52",
+          "Name": "aN",
+          "Description": "aN",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "eb6d9b50143243d680ab6901f97df011",
+          "Name": "mN",
+          "Description": "mN",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "afbe6d7f974e4354919b4e52b81bd6a2",
+          "Name": "omN",
+          "Description": "omN",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e8f2504eed8847febf0962d4d43f66d0",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5bf281a348c44b0d948313159705c4f4",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d92c65ce40514d1e9441f95eb0aaaa48",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "99a0a6ccc3fa41cdaab6ea74f0761ff8",
+      "Inputs": [
+        {
+          "Id": "a1d53baef1fa433c8882de687da098d5",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ae09bbb153214026a062238c2eff4018",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSVarArgFunction, DynamoCore",
+      "FunctionSignature": "DSCore.List.Join@var[]..[]",
+      "FunctionType": "VariableArgument",
+      "NodeType": "FunctionNode",
+      "Id": "5684fcebf80c49908f2c3934e8ce77ab",
+      "Inputs": [
+        {
+          "Id": "6618d449aea0449a9d18908496dbfce6",
+          "Name": "list0",
+          "Description": "Lists to join into one.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ee6cc256dd4048da9a484fcdf3da5c67",
+          "Name": "list1",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cd762a54a20a474bb578bc3dd97ff180",
+          "Name": "list",
+          "Description": "Joined list.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Concatenates all given lists into a single list.\n\nList.Join (lists: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "1028cf7fde364f3a870306e4e2d0159c",
+      "Inputs": [
+        {
+          "Id": "e3a9ffeb2f15493c8b79a1f18dc13a79",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f1da75790ffb4dcab270de60284d81ff",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "e8e2970158314dea96e17b0eaf019c17",
+      "Inputs": [
+        {
+          "Id": "bbd6472dd0614d56847dafcbbec5ab95",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a1a91eb2fcfd4d16936d0e92632cbb1d",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "093fd4a044ed4c16b4da49a2a273dda1",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "cf7d5049e8204cf28f3ae49fb9808144",
+      "Inputs": [
+        {
+          "Id": "bde8405dc7764bacaa76c230d8575592",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "921a0d8c7fb143808961671fa27b038a",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cf7ffeb576b140d0b2f389a32d8be70a",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.Assets@Revit.Elements.Material",
+      "Id": "71694164269c49b28be5dcf3598ca1d4",
+      "Inputs": [
+        {
+          "Id": "31db2e68f68147ccb910cc781a06d62e",
+          "Name": "material",
+          "Description": "Material to retrieve the assets from.\n\nMaterial",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a98002e6a1b44fc2bd8935fde89bbbb7",
+          "Name": "appearanceAsset",
+          "Description": "Assets if set for the Material.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1f76ed14bfbc4a01bb36c2561ff86b0a",
+          "Name": "thermalAsset",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2ab5896257fa41d1a1af7342b746478e",
+          "Name": "structuralAsset",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Retrieves default Assets that Material can have.\n\nMaterials.Assets (material: Material): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
+      "Id": "b99a724cc43b48e9b331a9beebe74cc2",
+      "Inputs": [
+        {
+          "Id": "cb5a4546c7ba4b448210c472a0b6e475",
+          "Name": "list",
+          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b5f91e1edafb48c9977a67e7175ebfbf",
+          "Name": "index",
+          "Description": "Index of the item to be fetched.\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2bb33ed614854dd5b5957daa9d84c519",
+          "Name": "item",
+          "Description": "Item in the list at the given index.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.UseRenderAppearanceForShading@Revit.Elements.Material,bool",
+      "Id": "27adf540702148a1bb8e745a9795fd20",
+      "Inputs": [
+        {
+          "Id": "715968c07df04bfabcda6ca667448107",
+          "Name": "material",
+          "Description": "Material to set the property for.\n\nMaterial",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "09ea887fb89642038629de5cb7dbf9bc",
+          "Name": "check",
+          "Description": "True if checkbox is to be checked, otherwise false.\n\nbool\nDefault value : true",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d4f31179e5e848bf9d470ffc61a01b51",
+          "Name": "material",
+          "Description": "Material with the adjusted property.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the checkbox property on the Material that would force the Appearance Color to be used for Shading display in Revit.\n\nMaterials.UseRenderAppearanceForShading (material: Material, check: bool = true): Material"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "true;",
+      "Id": "ebc13c88b9154d52b009647a8fb29622",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "44aceec561134bef8817b99401a65ae4",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.SetAppearanceAsset@Revit.Elements.Material,Revit.Elements.Element",
+      "Id": "a056660c1e5b4d5fb8084735cf0aba3b",
+      "Inputs": [
+        {
+          "Id": "3f413062a87544308d2f5bfbec0538b5",
+          "Name": "material",
+          "Description": "Material to set the Appearance Asset for.\n\nMaterial",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "83b645446b0a44598c71a9576a06d734",
+          "Name": "appearanceAsset",
+          "Description": "Appearance Asset object.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1bf13a3b28eb4f99aeea8dd1a1f0e48a",
+          "Name": "Material",
+          "Description": "Material",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the Appearance Asset Element for the Material.\n\nMaterials.SetAppearanceAsset (material: Material, appearanceAsset: Element): Material"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "archilab.Revit.Elements.Materials.SetColor@Revit.Elements.Material,DSCore.Color",
+      "Id": "5cc21b52144d4202831898fb34c471f0",
+      "Inputs": [
+        {
+          "Id": "08c671fd53c5472bae9ed2a95bd61e46",
+          "Name": "material",
+          "Description": "Material to set the Color for.\n\nMaterial",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8b1c62b488874ee8b64953688175b4a5",
+          "Name": "color",
+          "Description": "Color to set the Material to.\n\nColor",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a6bf1c80353947d79276fb084117a7a6",
+          "Name": "material",
+          "Description": "Material with the adjusted color.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Sets the color of the Material.\n\nMaterials.SetColor (material: Material, color: Color): Material"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "1014d5ebcb7147d7911182dbca51741a",
+      "End": "585bd55e744445c2b3847dbdf778094c",
+      "Id": "29fa8a595abd429f97713c25bae9ea29"
+    },
+    {
+      "Start": "a594978c1e344999b5d1cc0287abff2d",
+      "End": "5b48df012faa448f9b47efb4b4f82b65",
+      "Id": "f16e159f30aa42739f3a2f2ad02eab55"
+    },
+    {
+      "Start": "88cdf20b860e4d60a72757797303b237",
+      "End": "04c6ab5624db47d6ab7fd1badb45a994",
+      "Id": "8b469ecc06234792912134eee5b9bc92"
+    },
+    {
+      "Start": "88cdf20b860e4d60a72757797303b237",
+      "End": "5d19ffc902c44ecba08bb7027b81ec87",
+      "Id": "2f3f3cb5d8ef49bdb249d4158c3b071b"
+    },
+    {
+      "Start": "f396a5d607774c8ea4bf7c48424038b7",
+      "End": "ee6cc256dd4048da9a484fcdf3da5c67",
+      "Id": "60110bcc4f214207b448af50d1e9e597"
+    },
+    {
+      "Start": "7b87da1dd1554256abfb37b0ef4d52c6",
+      "End": "89830bb4bc134f21a3a7c45c4462471b",
+      "Id": "cbc4a65b44cf49598e74a65401fba1f8"
+    },
+    {
+      "Start": "7b87da1dd1554256abfb37b0ef4d52c6",
+      "End": "55df8f3d43c346aabe4e74b223baf0dd",
+      "Id": "ce4470e09f194706a5704f38bb35c9bd"
+    },
+    {
+      "Start": "a2819b60de5b4e5da5413f84b340e1f4",
+      "End": "12b53ae1a4014dc99229a97aa36490c9",
+      "Id": "8fe08df7633a42e6a80b19ce8a15ec50"
+    },
+    {
+      "Start": "e3bc13a9f1554b0a97d317f6ef217304",
+      "End": "8a0ca813193e43b1838c57c05870d271",
+      "Id": "24d63c746d6f44ff9f046b4754218e5b"
+    },
+    {
+      "Start": "b5a3e46ab28d4134b9f400b08e194d7a",
+      "End": "13fa0d4a0ce1465da50d490e0cf3a3fe",
+      "Id": "d083f97811984d63856b3d2025684dd1"
+    },
+    {
+      "Start": "50b6509327e245eaab7c0aa8bcbbf725",
+      "End": "85c7983f43224e0c819b8d6cec981f57",
+      "Id": "3582e58b3cc2430fa2402c6fb9a907e0"
+    },
+    {
+      "Start": "b589c0edce2341a483a2e63092b02a17",
+      "End": "08386409d9824b19a235299ac1471d6f",
+      "Id": "619cd56eff1c49b893b03fc0f721cf63"
+    },
+    {
+      "Start": "b589c0edce2341a483a2e63092b02a17",
+      "End": "6da96cc32e3545d4a3ea21bc9047b774",
+      "Id": "51b8e9b5c770442b8b38eb410d8d6ccd"
+    },
+    {
+      "Start": "b589c0edce2341a483a2e63092b02a17",
+      "End": "7ae41da0f973419f9463da8aa3b3c45a",
+      "Id": "553ce927944e46af8e0b9de297e1eb4f"
+    },
+    {
+      "Start": "bfd71fa6d2eb4e6f92a3214a41cf4717",
+      "End": "e91ded718963480399822480221aa6fc",
+      "Id": "bca16337445a4dad8d69fa6d5b56d3b4"
+    },
+    {
+      "Start": "af17599a3fae443ca5f6f26442f83575",
+      "End": "5ec0de5ae2464601b6cca9767e521b5a",
+      "Id": "8f44d7740233460a950e545bc1258ab0"
+    },
+    {
+      "Start": "36df24e26fc941cc83251c9ef4aec087",
+      "End": "c37e8ef75bbd4484a6e2195d4addde3b",
+      "Id": "109222bf6eac4387a25fd7b2f8acb694"
+    },
+    {
+      "Start": "06c7be9448ee46189e4bbe591369fbdd",
+      "End": "edcfa73022b34ee4847125e3dee70f63",
+      "Id": "264f6b40d6bd4f9280a0d13b57809222"
+    },
+    {
+      "Start": "b46afdbbfe834c95b09567b749327aa7",
+      "End": "7b099a56289c4dceaf8d78b80c55f4a5",
+      "Id": "3f5e57d09d134be6bf3c3c076fbcd9a7"
+    },
+    {
+      "Start": "143a4a8391f945dd94fda7c1acdf46fc",
+      "End": "62cdd961e0f6416a833085042cd76cfd",
+      "Id": "1922560558a7457785581b741c020748"
+    },
+    {
+      "Start": "7197c8c699064fe683b974cafb0fba9f",
+      "End": "29e4cc9c64114142a8ce1098414f47e6",
+      "Id": "3b1f41a5473d46149d49c25124fda4a3"
+    },
+    {
+      "Start": "e07b27efc0d44219a6d6c82a4e2bf9d8",
+      "End": "df27eb42771b40cc8bcb6fec846ffc45",
+      "Id": "6173fb7679c64796b5176c60718881b6"
+    },
+    {
+      "Start": "78125dd5b6a24743bb11298bca418f76",
+      "End": "fc735bc8fe694a149282e0168979c7d3",
+      "Id": "2ccb153976434ff1a30c90df6dc4cdc3"
+    },
+    {
+      "Start": "78125dd5b6a24743bb11298bca418f76",
+      "End": "6bb0e9729c8441df988f5ab2815125ab",
+      "Id": "e5a7701ac88f4b87a7b79c376fcfbe4a"
+    },
+    {
+      "Start": "a1981980daa44038851a02d8a40218a4",
+      "End": "f12f09e819a5492485a53d246d85d082",
+      "Id": "fcd377abc3c74bc2a1941ba1a70f8809"
+    },
+    {
+      "Start": "4ae82d9ee3914f8bb0f60a3179164761",
+      "End": "23a8e06e06a74ac9aa77aebab1ecfd59",
+      "Id": "e100bc19fbc447d5991a007bdb09eb33"
+    },
+    {
+      "Start": "1354ac3744464c2da4fd5fed865afd92",
+      "End": "eb6d9b50143243d680ab6901f97df011",
+      "Id": "bdec8535211c412c855d8e837bc6c11a"
+    },
+    {
+      "Start": "1354ac3744464c2da4fd5fed865afd92",
+      "End": "863158e3830147578a01ca4e96bc2a90",
+      "Id": "e3d4a896179342139e5630a26cd88aa0"
+    },
+    {
+      "Start": "2b7d51f277684e93bb9aeaa2adb08a7c",
+      "End": "5a6b6a6ad8f947a6bffd73c7467f3d52",
+      "Id": "08909eb20ca3426389c37b8f451d4e25"
+    },
+    {
+      "Start": "2b7d51f277684e93bb9aeaa2adb08a7c",
+      "End": "8dfd7c21c5394bb985a9614aba378110",
+      "Id": "d49b228fed93431ebeb36016fde8c7a5"
+    },
+    {
+      "Start": "5ad3fdca6b5c4560a4743b2593f0b143",
+      "End": "b8f8d6d575f44a22948c263d1ae8135b",
+      "Id": "877f0a724a344f99b2bd9a718b7525db"
+    },
+    {
+      "Start": "5ad3fdca6b5c4560a4743b2593f0b143",
+      "End": "235b15f8bced425fa222c9244d3b16e3",
+      "Id": "150ee3b79c0a4a4a844944da930d2b91"
+    },
+    {
+      "Start": "b3fce1305f5d4ebbadc44774c3d85ad8",
+      "End": "7d6ec26fef2540d68689c9a3d0b20665",
+      "Id": "ea97640985df4e8ea4641eedd95ce0c5"
+    },
+    {
+      "Start": "165204f2b80043b0a8658e5e4cf3752a",
+      "End": "19507bfb2d754ebca2b34ce5f4b9e6eb",
+      "Id": "a25588106b494dd6a33dc14845b6054d"
+    },
+    {
+      "Start": "ed98510f939942f3b8a26758a6fb8855",
+      "End": "b8aca20dc7264f68b951b90c566a5d69",
+      "Id": "e258d4c2ba024f79b5be4c8477a48b0a"
+    },
+    {
+      "Start": "c5acb8b5ad0d41ceb07e312fdab2103e",
+      "End": "c66e3dec561146f4b5b1769068ceb507",
+      "Id": "41c6606aacf749669b5965f8c379e229"
+    },
+    {
+      "Start": "22be36cbdee24a68b68b59b4896fcc10",
+      "End": "3f413062a87544308d2f5bfbec0538b5",
+      "Id": "7c2075cc982d438a90bb1701a3a30870"
+    },
+    {
+      "Start": "22be36cbdee24a68b68b59b4896fcc10",
+      "End": "08c671fd53c5472bae9ed2a95bd61e46",
+      "Id": "64945ce63ff84d7eab24a452428ed997"
+    },
+    {
+      "Start": "2b9a1412fdad44daa13e4c7fac14b093",
+      "End": "2893661e5aad43ff9be750d5a716f60c",
+      "Id": "9d9186da9f134d548af52eae6091fb8c"
+    },
+    {
+      "Start": "e45b169980d04841ba3f198c43387959",
+      "End": "fa5db5b03f0445e3a8c1a50efb9bb3bf",
+      "Id": "dac1c071ce0f4e87a1a2eab17af9ac08"
+    },
+    {
+      "Start": "b46019ac42174a07aae3ea7bb1201453",
+      "End": "66b2ef4cc1f2421687bc69bddb731f7a",
+      "Id": "375e399c38ca43c8b3bd7614d580919a"
+    },
+    {
+      "Start": "b46019ac42174a07aae3ea7bb1201453",
+      "End": "def12b721af549bfb780fbfc1ae890f9",
+      "Id": "3a17e3cd23bc436e9a427f36acbb9525"
+    },
+    {
+      "Start": "9cedad8ca7f3407890109202fcd37a73",
+      "End": "fd7637962d1544cba2f2502cf312d099",
+      "Id": "7679846943a9403b85248c26b48e8e81"
+    },
+    {
+      "Start": "9cedad8ca7f3407890109202fcd37a73",
+      "End": "d65a56920d2340bb9c82ddc378fb4ac8",
+      "Id": "13f4bfd00a26475db147f1a50ca0c928"
+    },
+    {
+      "Start": "9cedad8ca7f3407890109202fcd37a73",
+      "End": "afbe6d7f974e4354919b4e52b81bd6a2",
+      "Id": "b02ec3eb41d847f69f5d157c405752ec"
+    },
+    {
+      "Start": "9bac8a20006647269baad5078d79343e",
+      "End": "55166b122d8d46deace3f11a0ffe3cf4",
+      "Id": "72786fe2422c41788d843267acdae046"
+    },
+    {
+      "Start": "9bac8a20006647269baad5078d79343e",
+      "End": "ca8d77bbf464462e818f05eb151acc15",
+      "Id": "268b2fb55d314c928e4059c88a3d1ad1"
+    },
+    {
+      "Start": "909df0e7232847239983fdc6f721de45",
+      "End": "cb5a4546c7ba4b448210c472a0b6e475",
+      "Id": "54fc06eb03254ddaa6b8f4ecc900e110"
+    },
+    {
+      "Start": "20a52ff45eec465d9bca26c3e5539d25",
+      "End": "77e8fdc91b2b4d4b95dae5b95cc6c44b",
+      "Id": "e38b05f8a002440dba6f41a151138912"
+    },
+    {
+      "Start": "b84d9726429b4b84a5fc1404b866838e",
+      "End": "2d913a4fdb754cc6b97b39a13a862ef8",
+      "Id": "acc02b373542482ebf72df9ceac5f0de"
+    },
+    {
+      "Start": "8573f9b20c884d06bc66d9f53d312d42",
+      "End": "4509e874f7ab4f54976f2c1671adfdb4",
+      "Id": "a876baec065a404eaaff5864c807970f"
+    },
+    {
+      "Start": "8573f9b20c884d06bc66d9f53d312d42",
+      "End": "36fe7c13e04343cdb3ebb5d73cd26aee",
+      "Id": "b013652719e04b588890541cb52ae037"
+    },
+    {
+      "Start": "8573f9b20c884d06bc66d9f53d312d42",
+      "End": "e3a9ffeb2f15493c8b79a1f18dc13a79",
+      "Id": "2887d517e3bb41e4a3afdc9b625d258f"
+    },
+    {
+      "Start": "ef8dd7bdae4b4575b8a9e310af92ef9b",
+      "End": "6618d449aea0449a9d18908496dbfce6",
+      "Id": "2e4a39ad90734a69903005a016ed5e58"
+    },
+    {
+      "Start": "ef8dd7bdae4b4575b8a9e310af92ef9b",
+      "End": "83b645446b0a44598c71a9576a06d734",
+      "Id": "a11d09365ac94cd0be2631985f3073df"
+    },
+    {
+      "Start": "9015df5fa09342619c123611563b9f92",
+      "End": "17dd9c102e8a4f6bb97b61f19f1b46a9",
+      "Id": "562d871a56104e689c861249cfee1a5a"
+    },
+    {
+      "Start": "9015df5fa09342619c123611563b9f92",
+      "End": "a1d53baef1fa433c8882de687da098d5",
+      "Id": "cdb3a62d9fcc4cf4b9376bc54f6c29af"
+    },
+    {
+      "Start": "9015df5fa09342619c123611563b9f92",
+      "End": "69e86bd08da249b38dc16c7c34e028ef",
+      "Id": "561f449ee22e40e2b1dc467cc205a32e"
+    },
+    {
+      "Start": "21502a8be7b04707aa35c2abe3924285",
+      "End": "bbd6472dd0614d56847dafcbbec5ab95",
+      "Id": "19cc1d9d143a49afb93568307398d4c9"
+    },
+    {
+      "Start": "21502a8be7b04707aa35c2abe3924285",
+      "End": "bde8405dc7764bacaa76c230d8575592",
+      "Id": "daf8deec097c4d6d8842f51c74546616"
+    },
+    {
+      "Start": "2356b735a8354a58ac81d2a23a34f623",
+      "End": "a727f993f5f64fad9e1bc14d7eda27eb",
+      "Id": "270b03a8b22f47688774736ed0107c25"
+    },
+    {
+      "Start": "099cf985b1ea4fa989565e9e0c909dbf",
+      "End": "525789bb1bd04ed3890fb3ef071fec81",
+      "Id": "bb24ee0438b345c990e40020d4fc8081"
+    },
+    {
+      "Start": "a95f6a4a2e8845bea3e2470e5eebfa7f",
+      "End": "900ce9cefc904059b8e37f168133c16d",
+      "Id": "6e81fd7d09fc4a0fb222f85d6c23e9f7"
+    },
+    {
+      "Start": "a95f6a4a2e8845bea3e2470e5eebfa7f",
+      "End": "921a0d8c7fb143808961671fa27b038a",
+      "Id": "fb1de1e0a01c4f55907440d259fc0b0e"
+    },
+    {
+      "Start": "743c95175bb24b149bc052113530f8db",
+      "End": "bf42ae082adc44d29f3547946a0005ae",
+      "Id": "339a5ce8d3ec475d9f656a1066189d19"
+    },
+    {
+      "Start": "03f830329e344e28887203aa2fb36044",
+      "End": "a1a91eb2fcfd4d16936d0e92632cbb1d",
+      "Id": "c50cd514cf7e411d8a20520eb76d69a6"
+    },
+    {
+      "Start": "03f830329e344e28887203aa2fb36044",
+      "End": "b5f91e1edafb48c9977a67e7175ebfbf",
+      "Id": "27f178c0bcc242f1bd02e4e262fb0bba"
+    },
+    {
+      "Start": "e8f2504eed8847febf0962d4d43f66d0",
+      "End": "a972633f719d448e8422fbb966ba4873",
+      "Id": "94265830a95a4e25a846a338775b4646"
+    },
+    {
+      "Start": "5bf281a348c44b0d948313159705c4f4",
+      "End": "368150c4849f44f690a1b69a1e8cd598",
+      "Id": "6b4847722f554ddda94c275acc90de0c"
+    },
+    {
+      "Start": "5bf281a348c44b0d948313159705c4f4",
+      "End": "3d8e655c98ed482fa6751c01aa5b917f",
+      "Id": "372b5dc398dc48e6bb0b2cce9f8dad38"
+    },
+    {
+      "Start": "d92c65ce40514d1e9441f95eb0aaaa48",
+      "End": "bb990cfbcfea4da783a043c9e187f9db",
+      "Id": "feaa731b68bb404aa4716da419d1aa78"
+    },
+    {
+      "Start": "cd762a54a20a474bb578bc3dd97ff180",
+      "End": "5d4f19a9ae3c46d3ad5677eb403bb22d",
+      "Id": "0a1468b6be2f45428ee44ede0f4b8599"
+    },
+    {
+      "Start": "093fd4a044ed4c16b4da49a2a273dda1",
+      "End": "368c2050156545ffa3eedf366170d376",
+      "Id": "e8a985d50c684c99ba0f98b01d59062d"
+    },
+    {
+      "Start": "093fd4a044ed4c16b4da49a2a273dda1",
+      "End": "8b1c62b488874ee8b64953688175b4a5",
+      "Id": "5018a3a34c3c43ceaad448060fbfea41"
+    },
+    {
+      "Start": "cf7ffeb576b140d0b2f389a32d8be70a",
+      "End": "efeeb0b53eba4f3c8d4539e4e82c09b0",
+      "Id": "fff2a47c07524b349d69a920aff9dfcd"
+    },
+    {
+      "Start": "a98002e6a1b44fc2bd8935fde89bbbb7",
+      "End": "67ea09f70743448a91f02f324cfc39e2",
+      "Id": "c9ff36277da146afabea27db3d575272"
+    },
+    {
+      "Start": "44aceec561134bef8817b99401a65ae4",
+      "End": "09ea887fb89642038629de5cb7dbf9bc",
+      "Id": "ae7f6eafafaa43f6a15da63bfe711912"
+    },
+    {
+      "Start": "1bf13a3b28eb4f99aeea8dd1a1f0e48a",
+      "End": "715968c07df04bfabcda6ca667448107",
+      "Id": "e7df58de5d0a44e38661b09927940db5"
+    },
+    {
+      "Start": "a6bf1c80353947d79276fb084117a7a6",
+      "End": "31db2e68f68147ccb910cc781a06d62e",
+      "Id": "274b2950ce054198bd42a19ca2210580"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "archi-lab.net",
+      "Version": "2021.25.2621",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "8db40a2d42b146d2850c1ff9c872ff6d",
+        "ec4ab17dc52549b8afd103d037cbe806",
+        "db8fcc37c6cd443db67b0f024fbee1f3",
+        "c29a202cdcf04eb79a1313ca998ce539",
+        "988ed8f6991645c7b1d43ffe3fddb66f",
+        "e848f9129fea484fa91b5b5606fcc4a1",
+        "d37487e214e745fe9682ad59a2497b0a",
+        "5fd3127bdb9d4764a8d18b347a121032",
+        "735e3f85f2c141cea5830a50a8955e6b",
+        "71694164269c49b28be5dcf3598ca1d4",
+        "27adf540702148a1bb8e745a9795fd20",
+        "a056660c1e5b4d5fb8084735cf0aba3b",
+        "5cc21b52144d4202831898fb34c471f0"
+      ]
+    }
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.6.1.8786",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.Create",
+        "Id": "8db40a2d42b146d2850c1ff9c872ff6d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2535.94536847633,
+        "Y": 1812.10687529504
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.SetAppearanceAsset",
+        "Id": "ec4ab17dc52549b8afd103d037cbe806",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3116.72588542123,
+        "Y": 1817.16801288172
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_AppearanceAssets.CreateViaDuplicate",
+        "Id": "db8fcc37c6cd443db67b0f024fbee1f3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2535.94536847633,
+        "Y": 1609.45243952163
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_AppearanceAssets.SetGenericProperties",
+        "Id": "c29a202cdcf04eb79a1313ca998ce539",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3493.8366407975541,
+        "Y": 1373.48146972925
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Color.ByARGB",
+        "Id": "7651d25593674d7887c91339900b6022",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -35.704749830677883,
+        "Y": 1474.256961310308
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.UseRenderAppearanceForShading",
+        "Id": "988ed8f6991645c7b1d43ffe3fddb66f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3469.8366407975541,
+        "Y": 1817.16801288172
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "977d6de0113940cc862c6a5922edef52",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -490.38960544575593,
+        "Y": 1496.1414425875985
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "a1f1c74a87794c1d8fa9126347606ef4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3328.72588542123,
+        "Y": 1970.42954713321
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_AppearanceAssets.SetTransparencyProperties",
+        "Id": "e848f9129fea484fa91b5b5606fcc4a1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4492.80310447935,
+        "Y": 1435.74693014258
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_AppearanceAssets.SetReflectivityProperties",
+        "Id": "d37487e214e745fe9682ad59a2497b0a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4492.80310447935,
+        "Y": 1288.03091207101
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "ef8ade4cd6c54b5c84624d4ac80492a5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4126.62197483211,
+        "Y": 1251.70942817436
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_AppearanceAssets.SetGenericProperties",
+        "Id": "5fd3127bdb9d4764a8d18b347a121032",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4492.80310447935,
+        "Y": 1114.31489399945
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Description",
+        "Id": "dba5478973444cfca85f6b2428f017c8",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2158.7678091753151,
+        "Y": 430.55857871444761
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Input RAL",
+        "Id": "dbb0347afa6d4299b41d3c5e00cced6c",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2152.9661571051683,
+        "Y": 1199.6070639031668
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Color",
+        "Id": "e0260ca9c74f4e9a84cd698c7a2a5b4f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "X": 445.11554937133985,
+        "Y": 1641.8230454251172
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Image.FromPixels",
+        "Id": "7a1ddabab54c43a28d628c8668086180",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 201.51508416805098,
+        "Y": 1641.8230454251172
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RAL to RGB (Py)",
+        "Id": "5d0dbdc38914418a949456609764219f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1067.9451093879111,
+        "Y": 1491.5366653841941
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Dictionary.ValueAtKey",
+        "Id": "e171a243b13745919b3ff2482bae8544",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -820.62150494734624,
+        "Y": 1493.1326126504266
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Add Color Name to Material Name?",
+        "Id": "e17d9942fc614990b6ee1cdf0f08e8b1",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -437.14187105439214,
+        "Y": 992.50293102895466
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Names (Py)",
+        "Id": "568a0953edb54ca0845e45b0de6a6455",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -47.22869261625965,
+        "Y": 1192.4548966127477
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "eef0f3d021064018822f62135fe89f7b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 118.9697577633824,
+        "Y": 1197.4543838856662
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String.Split",
+        "Id": "8756292c9dc7405babe6af323dd5eda8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1427.6811198269979,
+        "Y": 1199.6070639031668
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "a8e260e5d9ee40f3b01d07db8adb6b49",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1549.1392031884279,
+        "Y": 1257.9923501320973
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String.Replace",
+        "Id": "ecd3ce9faccf45a88bf13735662ffefc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1792.5972865498579,
+        "Y": 1199.6070639031668
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "146ce81b2da0414381e3d53d1d5518c6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1914.0553699112979,
+        "Y": 1247.9923501320973
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Reset Material (Py)",
+        "Id": "a331a1bdfd5c4534a0789ddc6494c733",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2535.94536847633,
+        "Y": 470.889156263652
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Reset Existing RAL Materials?",
+        "Id": "caf90521731b4b94b582cb6bfd5c6f62",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2123.35756224683,
+        "Y": 198.696965514442
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "637b52979c1e41c197fd161adea8dda3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -66.82155868559812,
+        "Y": 489.75848564160754
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "All Elements of Category",
+        "Id": "da763679a3a844c4a06a24bdf2f3d1db",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 296.34785492764377,
+        "Y": 489.75848564160754
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Material.Name",
+        "Id": "4592662050bf4ceb9b82e82006ecf18f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 536.70611433634349,
+        "Y": 624.17499293187507
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "c142ac777cdf45f68fd7e920362d2b2d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1021.086597774957,
+        "Y": 911.757049302238
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "9b6d14b17f844d00bb18b7052e8ce60a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -336.99145701220186,
+        "Y": 1275.3681827547325
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number",
+        "Id": "ebccfd96ff464fa5b563a076ed12698d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -433.67096251099247,
+        "Y": 1326.4852102267241
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.SetIntersection",
+        "Id": "18ff40c6872441b5a65bb3c217ce7a68",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1260.3264007994569,
+        "Y": 773.031672644896
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_AppearanceAssets.SetGenericProperties",
+        "Id": "735e3f85f2c141cea5830a50a8955e6b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3493.8366407975541,
+        "Y": 1127.3462064945231
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.SetDifference",
+        "Id": "51c68f0598c34aaf830e32fbeeb30e48",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1223.284893312187,
+        "Y": 1817.28724202596
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "3fb6183f4bb745f798ccfc96491ff8a3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1615.0755909609647,
+        "Y": 1269.7616565361116
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.IndexOf",
+        "Id": "30b143ec6026457d97400228feb2eba0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1543.802180813047,
+        "Y": 634.306295987554
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "559f4d12ef0e4753823e798ea6f67d4a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1801.6635775555469,
+        "Y": 495.58091933021092
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.IndexOf",
+        "Id": "ba2f9eabeb5d45f0abe8393a50c386ac",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1543.802180813047,
+        "Y": 1699.40825304864
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "d98c2c4865d045229288b42d3db3009f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1805.9975495756171,
+        "Y": 1606.85644319439
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.IndexOf",
+        "Id": "9065947f028740f2bf2e609e486d6ddb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1543.802180813047,
+        "Y": 866.019391887917
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "eb56659870814759bab5ca1830184b34",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1023.998133940627,
+        "Y": 1660.15520578925
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "New Material",
+        "Id": "99a0a6ccc3fa41cdaab6ea74f0761ff8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "X": 2110.85756224683,
+        "Y": 1992.15479174745
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.Join",
+        "Id": "5684fcebf80c49908f2c3934e8ce77ab",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3972.2975646189748,
+        "Y": 1246.6862282714374
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Material with this Name already exist in Project.",
+        "Id": "1028cf7fde364f3a870306e4e2d0159c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "X": 2063.85756224683,
+        "Y": 772.73028376024422
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "e8e2970158314dea96e17b0eaf019c17",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1800.5887610032469,
+        "Y": 1166.42381409909
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "cf7d5049e8204cf28f3ae49fb9808144",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1805.9975495756171,
+        "Y": 1412.14541113487
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.Assets",
+        "Id": "71694164269c49b28be5dcf3598ca1d4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3068.5901633088515,
+        "Y": 722.59461051904589
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.GetItemAtIndex",
+        "Id": "b99a724cc43b48e9b331a9beebe74cc2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1801.6635775555369,
+        "Y": 1003.71820897051
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.UseRenderAppearanceForShading",
+        "Id": "27adf540702148a1bb8e745a9795fd20",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4457.19177203066,
+        "Y": 473.893921642169
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "ebc13c88b9154d52b009647a8fb29622",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4338.62197483211,
+        "Y": 597.502830518603
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.SetAppearanceAsset",
+        "Id": "a056660c1e5b4d5fb8084735cf0aba3b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4126.62197483211,
+        "Y": 473.893921642169
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "archilab_Materials.SetColor",
+        "Id": "5cc21b52144d4202831898fb34c471f0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2817.5926962878252,
+        "Y": 722.80393404517645
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "59ad125a4c6147b6be3d5e624c606f1f",
+        "Title": "Convert RAL to RGB",
+        "Nodes": [
+          "7651d25593674d7887c91339900b6022",
+          "977d6de0113940cc862c6a5922edef52",
+          "5d0dbdc38914418a949456609764219f",
+          "e171a243b13745919b3ff2482bae8544"
+        ],
+        "Left": -1077.9451093879111,
+        "Top": 1435.256961310308,
+        "Width": 1209.2403595572332,
+        "Height": 197.88448127729043,
+        "FontSize": 24.0,
+        "InitialTop": 1474.256961310308,
+        "InitialHeight": 166.88448127729043,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "55789227bc934782a993c793183b0066",
+        "Title": "Input RAL",
+        "Nodes": [
+          "dbb0347afa6d4299b41d3c5e00cced6c"
+        ],
+        "Left": -2162.9661571051683,
+        "Top": 1160.6070639031668,
+        "Width": 138.0,
+        "Height": 107.0,
+        "FontSize": 24.0,
+        "InitialTop": 1199.6070639031668,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 29.0,
+        "Background": "#FFB0C4DE"
+      },
+      {
+        "Id": "c5f1efbfaa4648fb8afb3d9b9a420d81",
+        "Title": "Reset some Parameters to default | archilab",
+        "Nodes": [
+          "e848f9129fea484fa91b5b5606fcc4a1",
+          "d37487e214e745fe9682ad59a2497b0a",
+          "ef8ade4cd6c54b5c84624d4ac80492a5",
+          "5fd3127bdb9d4764a8d18b347a121032"
+        ],
+        "Left": 4116.62197483211,
+        "Top": 1075.31489399945,
+        "Width": 789.18112964723969,
+        "Height": 479.43203614312984,
+        "FontSize": 24.0,
+        "InitialTop": 1114.31489399945,
+        "InitialHeight": 466.43203614312984,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "0af5105e1bb04768853989d0ff0581a7",
+        "Title": "Create and setup New Appearance Assets | archilab",
+        "Nodes": [
+          "db8fcc37c6cd443db67b0f024fbee1f3",
+          "c29a202cdcf04eb79a1313ca998ce539"
+        ],
+        "Left": 2525.94536847633,
+        "Top": 1334.48146972925,
+        "Width": 1343.8912723212243,
+        "Height": 367.97096979237995,
+        "FontSize": 24.0,
+        "InitialTop": 1373.48146972925,
+        "InitialHeight": 380.97096979237995,
+        "TextblockHeight": 29.0,
+        "Background": "#FFFFA07A"
+      },
+      {
+        "Id": "0720527538f64a03b3aacb0b79448241",
+        "Title": "Generate Material and Asset Names",
+        "Nodes": [
+          "568a0953edb54ca0845e45b0de6a6455",
+          "eef0f3d021064018822f62135fe89f7b",
+          "9b6d14b17f844d00bb18b7052e8ce60a",
+          "ebccfd96ff464fa5b563a076ed12698d"
+        ],
+        "Left": -443.67096251099247,
+        "Top": 1153.4548966127477,
+        "Width": 1084.6407202743749,
+        "Height": 241.03031361397643,
+        "FontSize": 24.0,
+        "InitialTop": 1192.4548966127477,
+        "InitialHeight": 279.03031361397643,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "ce59b68fac5a440ea4cc5badf50865cf",
+        "Title": "Input: Add Color Name to Material Name?",
+        "Nodes": [
+          "e17d9942fc614990b6ee1cdf0f08e8b1"
+        ],
+        "Left": -447.14187105439214,
+        "Top": 924.50293102895466,
+        "Width": 299.0,
+        "Height": 136.0,
+        "FontSize": 24.0,
+        "InitialTop": 992.50293102895466,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 58.0,
+        "Background": "#FFB0C4DE"
+      },
+      {
+        "Id": "15606fce3ae04adb83678086ed7c7be1",
+        "Title": "Remove spaces and convert String to List",
+        "Nodes": [
+          "8756292c9dc7405babe6af323dd5eda8",
+          "a8e260e5d9ee40f3b01d07db8adb6b49",
+          "ecd3ce9faccf45a88bf13735662ffefc",
+          "146ce81b2da0414381e3d53d1d5518c6"
+        ],
+        "Left": -1924.0553699112979,
+        "Top": 1160.6070639031668,
+        "Width": 736.3742500843,
+        "Height": 190.38528622893045,
+        "FontSize": 24.0,
+        "InitialTop": 1199.6070639031668,
+        "InitialHeight": 203.38528622893045,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "b98870917a9a4567855eae6fc76f2edc",
+        "Title": "Get all Materials and their Names",
+        "Nodes": [
+          "637b52979c1e41c197fd161adea8dda3",
+          "da763679a3a844c4a06a24bdf2f3d1db",
+          "4592662050bf4ceb9b82e82006ecf18f"
+        ],
+        "Left": -76.82155868559812,
+        "Top": 450.75848564160754,
+        "Width": 826.52767302194161,
+        "Height": 266.41650729026753,
+        "FontSize": 24.0,
+        "InitialTop": 489.75848564160754,
+        "InitialHeight": 279.41650729026753,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "af1e24da753e4cfe997949dfd5527de1",
+        "Title": "Filter Materials with RAL Names already exist in Project",
+        "Nodes": [
+          "c142ac777cdf45f68fd7e920362d2b2d",
+          "18ff40c6872441b5a65bb3c217ce7a68",
+          "30b143ec6026457d97400228feb2eba0",
+          "559f4d12ef0e4753823e798ea6f67d4a",
+          "9065947f028740f2bf2e609e486d6ddb",
+          "e8e2970158314dea96e17b0eaf019c17",
+          "b99a724cc43b48e9b331a9beebe74cc2",
+          "448e7e1501d1467fb8743452c5207f6d",
+          "91ba066fbd92421d85e838594081bce5",
+          "dd7f67a9bb6b45fda8de9ad237de9121",
+          "d5f3b9172b3c4ab883d84acdb06c85e6"
+        ],
+        "Left": 1011.086597774957,
+        "Top": 420.300434950763,
+        "Width": 979.57697978058991,
+        "Height": 865.12337914832688,
+        "FontSize": 24.0,
+        "InitialTop": 459.300434950763,
+        "InitialHeight": 852.12337914832688,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "b00cc89c242b40cf9ce7c32497b01f69",
+        "Title": "Filter Materials with new RAL Names",
+        "Nodes": [
+          "51c68f0598c34aaf830e32fbeeb30e48",
+          "ba2f9eabeb5d45f0abe8393a50c386ac",
+          "d98c2c4865d045229288b42d3db3009f",
+          "eb56659870814759bab5ca1830184b34",
+          "cf7d5049e8204cf28f3ae49fb9808144",
+          "d1e36b196b3b47198b6643a8d47947b9",
+          "26c7395660964cca804e231439749dd9",
+          "bf8f22baf14d40f69d9a7306d057524f"
+        ],
+        "Left": 1013.998133940627,
+        "Top": 1338.22073845629,
+        "Width": 980.9994156349901,
+        "Height": 598.06650356967,
+        "FontSize": 24.0,
+        "InitialTop": 1377.22073845629,
+        "InitialHeight": 585.06650356967,
+        "TextblockHeight": 29.0,
+        "Background": "#FFD3D3D3"
+      },
+      {
+        "Id": "943d9137c1104e1fbfe5c845215006ed",
+        "Title": "Reset Existing RAL Materials?",
+        "Nodes": [
+          "caf90521731b4b94b582cb6bfd5c6f62"
+        ],
+        "Left": 2113.35756224683,
+        "Top": 130.696965514442,
+        "Width": 259.0,
+        "Height": 136.0,
+        "FontSize": 24.0,
+        "InitialTop": 198.696965514442,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 58.0,
+        "Background": "#FFB0C4DE"
+      },
+      {
+        "Id": "55c6f41bc6784421ac722aae40d00e0e",
+        "Title": "Create and setup New Materials | archilab",
+        "Nodes": [
+          "8db40a2d42b146d2850c1ff9c872ff6d",
+          "ec4ab17dc52549b8afd103d037cbe806",
+          "988ed8f6991645c7b1d43ffe3fddb66f",
+          "a1f1c74a87794c1d8fa9126347606ef4"
+        ],
+        "Left": 2525.94536847633,
+        "Top": 1773.10687529504,
+        "Width": 1343.8912723212243,
+        "Height": 290.32267183817,
+        "FontSize": 24.0,
+        "InitialTop": 1812.10687529504,
+        "InitialHeight": 303.32267183817,
+        "TextblockHeight": 29.0,
+        "Background": "#FFFFA07A"
+      },
+      {
+        "Id": "17dbe151591e4eadb789b449817a9607",
+        "Title": "Reset Existing Materials | archilab",
+        "Nodes": [
+          "a331a1bdfd5c4534a0789ddc6494c733",
+          "71694164269c49b28be5dcf3598ca1d4",
+          "5cc21b52144d4202831898fb34c471f0"
+        ],
+        "Left": 2525.94536847633,
+        "Top": 431.889156263652,
+        "Width": 825.64479483252171,
+        "Height": 435.70545425539387,
+        "FontSize": 24.0,
+        "InitialTop": 470.889156263652,
+        "InitialHeight": 404.39668206407293,
+        "TextblockHeight": 29.0,
+        "Background": "#FFFFA07A"
+      },
+      {
+        "Id": "49a4669c0298463b96e5415fc913a79d",
+        "Title": "",
+        "Nodes": [
+          "1028cf7fde364f3a870306e4e2d0159c"
+        ],
+        "Left": 2053.85756224683,
+        "Top": 733.73028376024422,
+        "Width": 378.0,
+        "Height": 133.0,
+        "FontSize": 24.0,
+        "InitialTop": 772.73028376024422,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 29.0,
+        "Background": "#FF87CEFA"
+      },
+      {
+        "Id": "cea030bfb24d43c8b7df29ac4ade2b5a",
+        "Title": "",
+        "Nodes": [
+          "99a0a6ccc3fa41cdaab6ea74f0761ff8"
+        ],
+        "Left": 2100.85756224683,
+        "Top": 1953.15479174745,
+        "Width": 161.0,
+        "Height": 133.0,
+        "FontSize": 24.0,
+        "InitialTop": 1992.15479174745,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 29.0,
+        "Background": "#FF87CEFA"
+      },
+      {
+        "Id": "ee42528cc2014c9b985bc7be968131b8",
+        "Title": "Set color of Appearance Assets for Existing Materials | archilab",
+        "Nodes": [
+          "735e3f85f2c141cea5830a50a8955e6b"
+        ],
+        "Left": 3483.8366407975541,
+        "Top": 1059.3462064945231,
+        "Width": 386.0,
+        "Height": 239.0,
+        "FontSize": 24.0,
+        "InitialTop": 1127.3462064945231,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 58.0,
+        "Background": "#FFFFA07A"
+      },
+      {
+        "Id": "99136c29592a44468a8d27ec0aabaf1b",
+        "Title": "Set Appearance Asset to Materials again | archilab",
+        "Nodes": [
+          "27adf540702148a1bb8e745a9795fd20",
+          "ebc13c88b9154d52b009647a8fb29622",
+          "a056660c1e5b4d5fb8084735cf0aba3b"
+        ],
+        "Left": 4116.62197483211,
+        "Top": 434.893921642169,
+        "Width": 740.56979719855008,
+        "Height": 255.608908876434,
+        "FontSize": 24.0,
+        "InitialTop": 473.893921642169,
+        "InitialHeight": 268.608908876434,
+        "TextblockHeight": 29.0,
+        "Background": "#FFFFA07A"
+      },
+      {
+        "Id": "4ece0cd88874490bb66db0c6f1fca116",
+        "Title": "Script Name: 2.x MaterialCreateNewByColorRAL.dyn\n\r\nDynamo: 2.6\r\n\nPackages : \narchilab v.2021.25.2621\n\nDate: 2021.5.19",
+        "Nodes": [],
+        "Left": -2160.0969311976642,
+        "Top": 269.902040385665,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "d1e36b196b3b47198b6643a8d47947b9",
+        "Title": "New Mat Names",
+        "Nodes": [],
+        "Left": 1266.5193512169969,
+        "Top": 1784.6008426467,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "26c7395660964cca804e231439749dd9",
+        "Title": "New Asset Names",
+        "Nodes": [],
+        "Left": 1833.840297980837,
+        "Top": 1568.51338949954,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "448e7e1501d1467fb8743452c5207f6d",
+        "Title": "Existing Asset Names",
+        "Nodes": [],
+        "Left": 1824.6623672280275,
+        "Top": 969.007275005021,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "91ba066fbd92421d85e838594081bce5",
+        "Title": "Existing Mat Names",
+        "Nodes": [],
+        "Left": 1293.185892629017,
+        "Top": 735.330563500457,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "dd7f67a9bb6b45fda8de9ad237de9121",
+        "Title": "Existing Mats",
+        "Nodes": [],
+        "Left": 1848.093194086427,
+        "Top": 459.300434950763,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "bf8f22baf14d40f69d9a7306d057524f",
+        "Title": "Colors",
+        "Nodes": [],
+        "Left": 1874.2575642718371,
+        "Top": 1377.22073845629,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "d5f3b9172b3c4ab883d84acdb06c85e6",
+        "Title": "Colors",
+        "Nodes": [],
+        "Left": 1863.2191445245871,
+        "Top": 1130.98009041191,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 685.446860968808,
+    "Y": 364.6248963473717,
+    "Zoom": 0.30343400404971455
+  }
+}
