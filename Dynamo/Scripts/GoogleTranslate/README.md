@@ -23,7 +23,7 @@ ___
 ![StringsGoogleTranslate_1](images/StringsGoogleTranslate_1.jpg)
 
 
-[StringsGoogleTranslate.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslate.py)
+[StringsGoogleTranslate.py](python/StringsGoogleTranslate.py)
 
 **Translates list of strings using Google Translate service.**
 
@@ -54,7 +54,7 @@ ___
 
 ![StringsGoogleTranslateDetect_1](images/StringsGoogleTranslateDetect_1.jpg)
 
-[StringsGoogleTranslateDetect.py](Dynamo/Scripts/GoogleTranslate/python/StringsGoogleTranslateDetect.py)
+[StringsGoogleTranslateDetect.py](python/StringsGoogleTranslateDetect.py)
 
 **Takes list of strings and detects the language of each string using Google Translate service.**
 
