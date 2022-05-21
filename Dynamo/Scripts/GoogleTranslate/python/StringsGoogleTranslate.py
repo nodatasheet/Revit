@@ -29,7 +29,7 @@ List of supported languages and servers can be found here:
 By default 'translatepy' caches translation results for better performance.
     https://github.com/Animenosekai/translate#caching
     Current script cleans the cash in the end of translation:
-    controlled via CLEAN_TRANSLATION_CASHE constant.
+    controlled via CLEAN_TRANSLATION_CACHE constant.
     You may want to disable the cleaning.
 
 As it is mentioned in 'translatepy' disclaimer:
@@ -69,7 +69,7 @@ source_lang = IN[1]
 dest_lang = IN[2]
 
 SERVER_URL = 'translate.google.com'
-CLEAN_TRANSLATION_CASHE = True
+CLEAN_TRANSLATION_CACHE = True
 
 if not source_lang:
     source_lang = 'auto'
@@ -83,7 +83,7 @@ for text in source_texts:
     translation = g_translate.translate(text, dest_lang, source_lang).result
     translations.append(translation)
 
-if CLEAN_TRANSLATION_CASHE is True:
+if CLEAN_TRANSLATION_CACHE is True:
     g_translate.clean_cache()
 
 OUT = translations

@@ -25,7 +25,7 @@ List of supported languages and servers can be found here:
 By default 'translatepy' caches translation results for better performance.
     https://github.com/Animenosekai/translate#caching
     Current script cleans the cash in the end of translation:
-    controlled via CLEAN_TRANSLATION_CASHE constant.
+    controlled via CLEAN_TRANSLATION_CACHE constant.
     You may want to disable the cleaning.
 
 As it is mentioned in 'translatepy' disclaimer:
@@ -64,7 +64,7 @@ def assure_online(url):
 source_texts = tolist(IN[0])
 
 SERVER_URL = 'translate.google.com'
-CLEAN_TRANSLATION_CASHE = True
+CLEAN_TRANSLATION_CACHE = True
 
 check_url = assure_online(f'http://{SERVER_URL}')
 
@@ -75,7 +75,7 @@ for text in source_texts:
     detected_lang = g_translate.language(text).result
     detected_langs.append(detected_lang)
 
-if CLEAN_TRANSLATION_CASHE is True:
+if CLEAN_TRANSLATION_CACHE is True:
     g_translate.clean_cache()
 
 OUT = detected_langs

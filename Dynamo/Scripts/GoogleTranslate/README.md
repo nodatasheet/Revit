@@ -42,7 +42,7 @@ ___
 
 - By default translatepy [caches](https://github.com/Animenosekai/translate#caching) translation results for better performance.
     Current script cleans the caсhe in the end of translation:
-    controlled via `CLEAN_TRANSLATION_CASHE` constant.\
+    controlled via `CLEAN_TRANSLATION_CACHE` constant.\
     You may want to disable the cleaning.
 
 - As it is mentioned in translatepy [disclaimer](https://github.com/Animenosekai/translate#disclaimer):\
@@ -69,7 +69,7 @@ ___
 
 - By default translatepy [caches](https://github.com/Animenosekai/translate#caching) translation results for better performance.
     Current script cleans the caсhe in the end of translation:
-    controlled via `CLEAN_TRANSLATION_CASHE` constant.\
+    controlled via `CLEAN_TRANSLATION_CACHE` constant.\
     You may want to disable the cleaning.
 
 - As it is mentioned in translatepy [disclaimer](https://github.com/Animenosekai/translate#disclaimer):\
