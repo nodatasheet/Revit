@@ -10,7 +10,7 @@ clr.AddReference("RevitServices")
 import RevitServices
 from RevitServices.Persistence import DocumentManager
 from RevitServices.Transactions import TransactionManager
-doc =  DocumentManager.Instance.CurrentDBDocument
+doc = DocumentManager.Instance.CurrentDBDocument
 
 surfs = UnwrapElement(IN[0])
 mat = UnwrapElement(IN[1])
