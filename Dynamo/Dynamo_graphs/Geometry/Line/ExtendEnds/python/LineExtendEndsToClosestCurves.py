@@ -48,9 +48,9 @@ other_lines_ds = tolist(IN[1])
 line_to_extend = line_to_extend_ds.ToRevitType()
 other_lines = [line.ToRevitType() for line in other_lines_ds]
 end1 = line_to_extend.GetEndPoint(0)
-line_1_dir = line_to_extend.Direction
+line_dir = line_to_extend.Direction
 
-unbound_line = Line.CreateUnbound(end1, line_1_dir)
+unbound_line = Line.CreateUnbound(end1, line_dir)
 intersections = [get_intersection(unbound_line, line) for line in other_lines]
 intersections_flat = list(chain.from_iterable(intersections))
 
@@ -62,9 +62,9 @@ if len(intersections_flat) > 0:
     for pnt_i in intersections_flat:
         vector_e1i = pnt_i.Subtract(end1)
         vector_e2i = pnt_i.Subtract(end2)
-        if line_1_dir.DotProduct(vector_e1i) < 0:
+        if line_dir.DotProduct(vector_e1i) < 0:
             points_beh_end1.append((pnt_i, end1.DistanceTo(pnt_i)))
-        if line_1_dir.DotProduct(vector_e2i) > 0:
+        if line_dir.DotProduct(vector_e2i) > 0:
             points_beh_end2.append((pnt_i, end2.DistanceTo(pnt_i)))
     if len(points_beh_end1) > 0:
         new_end1 = min(points_beh_end1, key=itemgetter(1))[0]
