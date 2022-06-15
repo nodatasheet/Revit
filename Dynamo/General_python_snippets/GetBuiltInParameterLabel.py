@@ -7,6 +7,7 @@ from Autodesk.Revit.DB import BuiltInParameter, LabelUtils
 
 def get_built_in_parameter_label(bip_name):
     # type: (str) -> str
+    """Gets the user-visible name for a BuiltInParameter"""
     if Enum.IsDefined(BuiltInParameter, bip_name):
         bip_param = Enum.Parse(BuiltInParameter, bip_name)
         bip_label = LabelUtils.GetLabelFor(bip_param)
