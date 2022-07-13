@@ -9,6 +9,12 @@ import clr
 from System.Collections.Generic import List
 
 
+""" LINQ """
+clr.AddReference("System.Core")
+import System
+clr.ImportExtensions(System.Linq)
+
+
 """ Document and Application """
 clr.AddReference("RevitServices")
 # Import DocumentManager 
