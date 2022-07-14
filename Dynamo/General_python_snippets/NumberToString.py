@@ -4,9 +4,11 @@ If that is a problem, consider other methods:
 https://stackoverflow.com/a/37736333
 """
 
+from numbers import Number
+
 
 def num_to_str(num):
-    # type: (None) -> str
+    # type: (Number) -> str
     """Number to string without trailing zeros"""
     s = str(num)
     return '0' if s == '0' else s.rstrip('0').rstrip('.')
