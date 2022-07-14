@@ -1,5 +1,8 @@
+from numbers import Number
+
+
 def chunk_upto_max(numbers, max_size):
-    # type: (list, float) -> list
+    # type: (list[Number], Number) -> list[Number]
     """Takes a list of positive numbers and splits them
     into chunks not exceeding the maximum size"""
     assert max_size >= 0, "Max size should be positive"
