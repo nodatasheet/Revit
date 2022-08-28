@@ -7,7 +7,7 @@ from Autodesk.Revit.DB import XYZ, Plane, Point
 
 
 def point_project_onto_plane(point, plane):
-    # type: (XYZ, Plane) -> Point
+    # type: (XYZ, Plane) -> XYZ
     normal = plane.Normal
     vec_to_orig = point - plane.Origin
     signed_dist = normal.DotProduct(vec_to_orig)
