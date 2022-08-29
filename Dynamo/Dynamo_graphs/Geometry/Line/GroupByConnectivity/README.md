@@ -1,5 +1,5 @@
 # Group Lines by connectivity.
-Useful for grouping shaffled lines before supplying to PolyCurve.ByJoinedCurves node.
+Useful for grouping shuffled lines before supplying to PolyCurve.ByJoinedCurves node.
 ___
 - Supply: list of lines.
 - Returns: list of lines, grouped by connectivity (have common point).
