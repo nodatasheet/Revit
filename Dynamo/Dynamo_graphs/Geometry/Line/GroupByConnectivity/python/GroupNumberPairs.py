@@ -10,7 +10,7 @@ import string
 
 
 def connected(a, b):
-    return a[0] == b[0] or a[1] == b[1] or a[0] == b[1] or a[1] == b[0]
+    return any(x in a for x in b)
 
 
 def get_neighbors(pairs_dic):
@@ -18,10 +18,10 @@ def get_neighbors(pairs_dic):
     """Gets all neighbors for each pair
     as list of sets of dictionary keys"""
     all_neighbours = []
-    for i, pair in pairs_dic.items():
+    for i in pairs_dic.keys():
         sub_neighbours = {i}
-        for j, pair in pairs_dic.items():
-            if j != i and connected(pairs_dic[i], pair):
+        for j in pairs_dic.keys():
+            if j != i and connected(pairs_dic[i], pairs_dic[j]):
                 sub_neighbours.add(j)
         all_neighbours.append(sub_neighbours)
     return all_neighbours
@@ -53,11 +53,11 @@ shuffle(pairs)
 pprint(pairs)
 print('')
 
-pairs_dic = {string.ascii_lowercase[i]: v for i, v in enumerate(pairs)}
-pprint(pairs_dic)
+pairs_dict = {string.ascii_lowercase[i]: v for i, v in enumerate(pairs)}
+pprint(pairs_dict)
 print('')
 
-neighbours = get_neighbors(pairs_dic)
+neighbours = get_neighbors(pairs_dict)
 pprint(neighbours)
 print('')
 
@@ -65,5 +65,5 @@ merged = merge_touching_sets(neighbours)
 pprint(merged)
 print('')
 
-groupped = [[pairs_dic[k] for k in group] for group in merged]
+groupped = [[pairs_dict[k] for k in group] for group in merged]
 pprint(groupped)

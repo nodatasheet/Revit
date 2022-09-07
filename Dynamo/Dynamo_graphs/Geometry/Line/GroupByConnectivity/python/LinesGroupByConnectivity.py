@@ -44,10 +44,10 @@ def get_neighbors(lines_dict):
     """Gets all neighbors for each line
         as list of sets of dictionary keys"""
     all_neighbours = []
-    for i, line in lines_dict.items():
+    for i in lines_dict.keys():
         sub_neighbours = {i}
-        for j, line in lines_dict.items():
-            if j != i and are_lines_connected(lines_dict[i], line):
+        for j in lines_dict.keys():
+            if j != i and are_lines_connected(lines_dict[i], lines_dict[j]):
                 sub_neighbours.add(j)
         all_neighbours.append(sub_neighbours)
     return all_neighbours
