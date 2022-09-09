@@ -76,8 +76,8 @@ def merge_touching_sets(sets):
 
 
 def group_by_connectivity(curves):
-    # type: (list[Line]) -> list[list[Line]]
-    """Groups lines by their connectivity."""
+    # type: (list[Curve]) -> list[list[Curve]]
+    """Groups curves by their connectivity."""
     curves_dict = {i: v for i, v in enumerate(curves)}
     neighbors = get_neighbors(curves_dict)
     merged = merge_touching_sets(neighbors)
