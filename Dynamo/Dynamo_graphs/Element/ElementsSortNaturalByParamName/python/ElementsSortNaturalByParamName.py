@@ -73,7 +73,7 @@ def tolist(obj):
 
 def get_param_value_or_empty_str(elem, param_name):
     # type: (Element, str) -> int | float | str | ElementId
-    """Get parameter value converting null value to empty string.
+    """Gets parameter value converting None value to an empty string.
     None elements still not allowed."""
     if validate_element(elem):
         param_val = get_param_value_by_name(elem, param_name)
