@@ -59,6 +59,15 @@ def comparer_to_key(comparer, arg_getter=None):
         def __eq__(self, other):
             return comparer(self.obj, other.obj) == 0
 
+        def __le__(self, other):
+            return comparer(self._obj, other._obj) <= 0
+
+        def __ge__(self, other):
+            return comparer(self._obj, other._obj) >= 0
+
+        def __ne__(self, other):
+            return comparer(self._obj, other._obj) != 0
+
         __hash__ = None
     return K
 
