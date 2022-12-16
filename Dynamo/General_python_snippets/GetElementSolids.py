@@ -16,16 +16,16 @@ clr.AddReference("RevitServices")
 from RevitServices.Persistence import DocumentManager
 
 clr.AddReference("RevitAPI")
-from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB import Element, GeometryInstance, Options, Solid
 
 
 def validate_type(obj, expected_type):
-    if isinstance(obj, expected_type):
-        return True
-    else:
+    # type: (object, type) -> None
+    if not isinstance(obj, expected_type):
         raise TypeError(
             'Expected <{}>, got <{}>'.format(expected_type.__name__,
-                                             type(elem).__name__))
+                                             type(elem).__name__)
+        )
 
 
 def get_element_solids(elem, geom_options):
@@ -48,7 +48,7 @@ def get_element_solids(elem, geom_options):
 
 elems = UnwrapElement(IN[0])  # type: list[Element]
 
-doc = DocumentManager.Instance.CurrentDBDocument  # type: Document
+doc = DocumentManager.Instance.CurrentDBDocument
 active_view = doc.ActiveView
 
 geom_options = Options()
