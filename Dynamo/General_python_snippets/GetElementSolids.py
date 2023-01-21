@@ -24,7 +24,7 @@ def validate_type(obj, expected_type):
     if not isinstance(obj, expected_type):
         raise TypeError(
             'Expected <{}>, got <{}>'.format(expected_type.__name__,
-                                             type(elem).__name__)
+                                             type(obj).__name__)
         )
 
 
