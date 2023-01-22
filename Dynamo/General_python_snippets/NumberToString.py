@@ -1,12 +1,13 @@
-"""Converts number to string without trailing zeros.
+"""Converts a number to a string without trailing zeros.
 This method may return scientific notation of very big numbers.
 If that is a problem, consider other methods:
 https://stackoverflow.com/a/37736333
 """
 
-from numbers import Number
-from System.Globalization import CultureInfo
 from System import Int64
+from System.Globalization import CultureInfo
+
+from numbers import Number
 
 
 def tolist(obj):
@@ -21,13 +22,15 @@ def number_to_string(num):
     # type: (Number) -> str
     """Converts a number to a string without trailing zeros"""
     s = str(num)
-    return '0' if s == '0' else s.rstrip('0').rstrip('.')
+    if s == '0':
+        return '0'
+    return s.rstrip('0').rstrip('.')
 
 
 def validate_number(obj):
     # type: (object) -> None
     """Validates that object is a Number"""
-    # in Dynamo int is System.Int64 which is not recognized as a Number
+    # In Dynamo int is System.Int64 which is not recognized as a Number
     if not isinstance(obj, (Number, Int64)):
         raise TypeError(
             'Expected <Number>, got <{}>'.format(type(obj).__name__)
@@ -37,7 +40,7 @@ def validate_number(obj):
 # input number or list of numbers
 input_numbers = tolist(IN[0])
 
-# local separator, in case it is not a dot
+# get local decimal separator, in case it is not a dot
 decimal_separator = \
     CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator
 
