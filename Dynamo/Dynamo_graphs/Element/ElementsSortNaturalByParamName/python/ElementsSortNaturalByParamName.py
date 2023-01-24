@@ -8,10 +8,16 @@ it is ignored from sorting.
 import clr
 
 clr.AddReference("RevitAPI")
-from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB import Element, ElementId, StorageType, Parameter
+from Autodesk.Revit.DB import NamingUtils
 
 clr.AddReference("RevitServices")
 from RevitServices.Persistence import DocumentManager
+
+try:
+    from dynamo import UnwrapElement, IN  # stubs for linter
+except Exception:
+    pass
 
 
 def comparer_to_key(comparer, arg_getter=None):
@@ -84,18 +90,18 @@ def get_param_value_or_empty_str(elem, param_name):
     # type: (Element, str) -> int | float | str | ElementId
     """Gets parameter value converting None value to an empty string.
     None elements still not allowed."""
-    if validate_element(elem):
+    if validate_type(elem, Element):
         param_val = get_param_value_by_name(elem, param_name)
         return param_val if param_val else str()
 
 
-def validate_element(elem):
-    if isinstance(elem, Element):
-        return True
-    else:
+def validate_type(obj, expected_type):
+    # type: (object, type) -> None
+    """Assures that object is of expected type."""
+    if not isinstance(obj, expected_type):
         raise TypeError(
-            'Expected <{}>, got <{}>'.format(Element.__name__,
-                                             type(elem).__name__))
+            'Expected <{}>, got <{}>'.format(expected_type.__name__,
+                                             type(obj).__name__))
 
 
 def get_param_value_by_name(elem, param_name):
@@ -103,13 +109,9 @@ def get_param_value_by_name(elem, param_name):
     instance_param = elem.LookupParameter(param_name)
     if instance_param is not None:
         return get_param_value(instance_param)
-    else:
-        type_param = doc.GetElement(elem.GetTypeId())\
-            .LookupParameter(param_name)
-        if type_param is not None:
-            return get_param_value(type_param)
-        else:
-            return None
+    type_param = doc.GetElement(elem.GetTypeId()).LookupParameter(param_name)
+    if type_param is not None:
+        return get_param_value(type_param)
 
 
 def get_param_value(param):
@@ -117,14 +119,12 @@ def get_param_value(param):
     storage_type = param.StorageType
     if storage_type == StorageType.Integer:
         return param.AsInteger()
-    elif storage_type == StorageType.Double:
+    if storage_type == StorageType.Double:
         return param.AsDouble()
-    elif storage_type == StorageType.String:
+    if storage_type == StorageType.String:
         return param.AsString()
-    elif storage_type == StorageType.ElementId:
+    if storage_type == StorageType.ElementId:
         return param.AsElementId()
-    else:
-        return None
 
 
 unsorted_elems = tolist(UnwrapElement(IN[0]))
