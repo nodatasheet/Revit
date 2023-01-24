@@ -109,9 +109,11 @@ def get_param_value_by_name(elem, param_name):
     instance_param = elem.LookupParameter(param_name)
     if instance_param is not None:
         return get_param_value(instance_param)
-    type_param = doc.GetElement(elem.GetTypeId()).LookupParameter(param_name)
-    if type_param is not None:
-        return get_param_value(type_param)
+    elem_type = doc.GetElement(elem.GetTypeId())
+    if elem_type is not None:
+        type_param = elem_type.LookupParameter(param_name)
+        if type_param is not None:
+            return get_param_value(type_param)
 
 
 def get_param_value(param):
