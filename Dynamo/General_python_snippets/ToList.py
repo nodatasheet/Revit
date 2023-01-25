@@ -1,13 +1,12 @@
-"""Convert object to list if it is not a list."""
+"""Converts an object to a list if it is not iterable or string."""
 
 
-def tolist(obj1):
+def tolist(obj):
     # type: (list | None ) -> list
-    """Converts object to list if it is not iterable."""
-    if hasattr(obj1, '__iter__'):
-        return obj1
-    else:
-        return [obj1]
+    """Converts an object to a list if it is not iterable or string."""
+    if hasattr(obj, '__iter__') and not isinstance(obj, str):
+        return obj
+    return [obj]
 
 
 # Example
