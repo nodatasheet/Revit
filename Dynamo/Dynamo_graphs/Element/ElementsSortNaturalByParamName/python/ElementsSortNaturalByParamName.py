@@ -8,8 +8,7 @@ it is ignored from sorting.
 import clr
 
 clr.AddReference("RevitAPI")
-from Autodesk.Revit.DB import Element, ElementId, StorageType, Parameter
-from Autodesk.Revit.DB import NamingUtils
+from Autodesk.Revit.DB import *
 
 clr.AddReference("RevitServices")
 from RevitServices.Persistence import DocumentManager
@@ -18,6 +17,13 @@ try:
     from dynamo import UnwrapElement, IN  # stubs for linter
 except Exception:
     pass
+
+
+def tolist(obj):
+    # type: (object) -> list
+    if hasattr(obj, '__iter__') and not isinstance(obj, str):
+        return obj
+    return [obj]
 
 
 def comparer_to_key(comparer, arg_getter=None):
@@ -78,21 +84,40 @@ def comparer_to_key(comparer, arg_getter=None):
     return K
 
 
-def tolist(obj):
-    # type: (list | any) -> list
-    if hasattr(obj, '__iter__'):
-        return obj
-    else:
-        return [obj]
-
-
 def get_param_value_or_empty_str(elem, param_name):
     # type: (Element, str) -> int | float | str | ElementId
-    """Gets parameter value converting None value to an empty string.
-    None elements still not allowed."""
-    if validate_type(elem, Element):
-        param_val = get_param_value_by_name(elem, param_name)
-        return param_val if param_val else str()
+    validate_type(elem, Element)
+    return get_param_value_as_string(elem, param_name) or str()
+
+
+def get_param_value_as_string(elem, param_name):
+    # type: (Element, str) -> int | float | str | ElementId
+    param = get_param_by_name(elem, param_name)
+    if param is not None:
+        return get_value_as_unitless_string(param)
+
+
+def get_param_by_name(elem, param_name):
+    # type: (Element, str) -> Parameter
+    instance_param = elem.LookupParameter(param_name)
+    if instance_param is not None:
+        return instance_param
+
+    elem_type = doc.GetElement(elem.GetTypeId())
+    if elem_type is not None:
+        return elem_type.LookupParameter(param_name)
+
+
+def get_param_value_by_name(elem, param_name):
+    # type: (Element, str) -> int | float | str | ElementId
+    instance_param = elem.LookupParameter(param_name)
+    if instance_param is not None:
+        return get_value_as_unitless_string(instance_param)
+    elem_type = doc.GetElement(elem.GetTypeId())
+    if elem_type is not None:
+        type_param = elem_type.LookupParameter(param_name)
+        if type_param is not None:
+            return get_value_as_unitless_string(type_param)
 
 
 def validate_type(obj, expected_type):
@@ -104,29 +129,32 @@ def validate_type(obj, expected_type):
                                              type(obj).__name__))
 
 
-def get_param_value_by_name(elem, param_name):
-    # type: (Element, str) -> int | float | str | ElementId | None
-    instance_param = elem.LookupParameter(param_name)
-    if instance_param is not None:
-        return get_param_value(instance_param)
-    elem_type = doc.GetElement(elem.GetTypeId())
-    if elem_type is not None:
-        type_param = elem_type.LookupParameter(param_name)
-        if type_param is not None:
-            return get_param_value(type_param)
+def get_value_as_unitless_string(param):
+    # type: (Parameter) -> str
+    """Gets Parameter value as it is seen by the user,
+    but without the units.
+    """
+    spec_type = param.Definition.GetDataType()
+    if UnitUtils.IsMeasurableSpec(spec_type):
+        doc_unit_opts = doc.GetUnits().GetFormatOptions(spec_type)
+        custom_opts = FormatOptions(doc_unit_opts)
+        empty_symbol = ForgeTypeId()
+        custom_opts.SetSymbolTypeId(empty_symbol)
+        return param.AsValueString(custom_opts)
+    return get_value_as_string(param)
 
 
-def get_param_value(param):
-    # type: (Parameter) -> int | float | str | ElementId | None
-    storage_type = param.StorageType
-    if storage_type == StorageType.Integer:
-        return param.AsInteger()
-    if storage_type == StorageType.Double:
-        return param.AsDouble()
-    if storage_type == StorageType.String:
-        return param.AsString()
-    if storage_type == StorageType.ElementId:
-        return param.AsElementId()
+def get_value_as_string(param):
+    # type: (Parameter) -> str
+    """Gets Parameter value as it is seen by the user."""
+    if not value_is_invalid_element_id(param):
+        return param.AsValueString()
+
+
+def value_is_invalid_element_id(param):
+    # type: (Parameter) -> bool
+    return param.StorageType == StorageType.ElementId \
+        and param.AsElementId() == ElementId.InvalidElementId
 
 
 unsorted_elems = tolist(UnwrapElement(IN[0]))
