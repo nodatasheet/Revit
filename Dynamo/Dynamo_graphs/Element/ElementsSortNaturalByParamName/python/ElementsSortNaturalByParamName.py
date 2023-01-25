@@ -84,77 +84,59 @@ def comparer_to_key(comparer, arg_getter=None):
     return K
 
 
-def get_param_value_or_empty_str(elem, param_name):
-    # type: (Element, str) -> int | float | str | ElementId
-    validate_type(elem, Element)
-    return get_param_value_as_string(elem, param_name) or str()
+def get_param_string_value_by_name(_elem, _param_name):
+    # type: (Element, str) -> str
+    """Gets Element's parameter string value by the given parameter name.
 
-
-def get_param_value_as_string(elem, param_name):
-    # type: (Element, str) -> int | float | str | ElementId
-    param = get_param_by_name(elem, param_name)
-    if param is not None:
-        return get_value_as_unitless_string(param)
-
-
-def get_param_by_name(elem, param_name):
-    # type: (Element, str) -> Parameter
-    instance_param = elem.LookupParameter(param_name)
-    if instance_param is not None:
-        return instance_param
-
-    elem_type = doc.GetElement(elem.GetTypeId())
-    if elem_type is not None:
-        return elem_type.LookupParameter(param_name)
-
-
-def get_param_value_by_name(elem, param_name):
-    # type: (Element, str) -> int | float | str | ElementId
-    instance_param = elem.LookupParameter(param_name)
-    if instance_param is not None:
-        return get_value_as_unitless_string(instance_param)
-    elem_type = doc.GetElement(elem.GetTypeId())
-    if elem_type is not None:
-        type_param = elem_type.LookupParameter(param_name)
-        if type_param is not None:
-            return get_value_as_unitless_string(type_param)
-
-
-def validate_type(obj, expected_type):
-    # type: (object, type) -> None
-    """Assures that object is of expected type."""
-    if not isinstance(obj, expected_type):
-        raise TypeError(
-            'Expected <{}>, got <{}>'.format(expected_type.__name__,
-                                             type(obj).__name__))
-
-
-def get_value_as_unitless_string(param):
-    # type: (Parameter) -> str
-    """Gets Parameter value as it is seen by the user,
+    Returned value is the same as it is seen by the user,
     but without the units.
     """
-    spec_type = param.Definition.GetDataType()
-    if UnitUtils.IsMeasurableSpec(spec_type):
-        doc_unit_opts = doc.GetUnits().GetFormatOptions(spec_type)
-        custom_opts = FormatOptions(doc_unit_opts)
-        empty_symbol = ForgeTypeId()
-        custom_opts.SetSymbolTypeId(empty_symbol)
-        return param.AsValueString(custom_opts)
-    return get_value_as_string(param)
 
+    def _validate_type(obj, expected_type):
+        # type: (object, type) -> None
+        """Assures that object is of expected type."""
+        if not isinstance(obj, expected_type):
+            raise TypeError(
+                'Expected <{}>, got <{}>'.format(expected_type.__name__,
+                                                 type(obj).__name__))
 
-def get_value_as_string(param):
-    # type: (Parameter) -> str
-    """Gets Parameter value as it is seen by the user."""
-    if not value_is_invalid_element_id(param):
-        return param.AsValueString()
+    def _lookup_param(_elem, _param_name):
+        # type: (Element, str) -> Parameter
+        """Gets Element's instance or type parameter by the given name."""
+        instance_param = _elem.LookupParameter(_param_name)
+        if instance_param is not None:
+            return instance_param
+        elem_type = doc.GetElement(_elem.GetTypeId())
+        if elem_type is not None:
+            return elem_type.LookupParameter(_param_name)
 
+    def _get_value_as_unitless_string(_param):
+        # type: (Parameter) -> str
+        """Gets value as it is seen by the user, but without the units."""
+        spec_type = _param.Definition.GetDataType()
+        if UnitUtils.IsMeasurableSpec(spec_type):
+            doc_unit_opts = doc.GetUnits().GetFormatOptions(spec_type)
+            custom_opts = FormatOptions(doc_unit_opts)
+            empty_symbol = ForgeTypeId()
+            custom_opts.SetSymbolTypeId(empty_symbol)
+            return _param.AsValueString(custom_opts)
+        return _get_value_as_string(_param)
 
-def value_is_invalid_element_id(param):
-    # type: (Parameter) -> bool
-    return param.StorageType == StorageType.ElementId \
-        and param.AsElementId() == ElementId.InvalidElementId
+    def _get_value_as_string(_param):
+        # type: (Parameter) -> str
+        """Gets value as it is seen by the user."""
+        if not _value_is_invalid_element_id(_param):
+            return _param.AsValueString()
+
+    def _value_is_invalid_element_id(_param):
+        # type: (Parameter) -> bool
+        return _param.StorageType == StorageType.ElementId \
+            and _param.AsElementId() == ElementId.InvalidElementId
+
+    _validate_type(_elem, Element)
+    _param = _lookup_param(_elem, _param_name)
+    if _param is not None:
+        return _get_value_as_unitless_string(_param)
 
 
 unsorted_elems = tolist(UnwrapElement(IN[0]))
@@ -165,10 +147,10 @@ doc = DocumentManager.Instance.CurrentDBDocument
 sorted_elems = sorted(
     unsorted_elems, key=comparer_to_key(
         NamingUtils.CompareNames,
-        lambda x: str(get_param_value_or_empty_str(x, param_name)))
+        lambda e: get_param_string_value_by_name(e, param_name) or str())
 )
 
 sorted_param_vals = [
-    get_param_value_by_name(e, param_name) for e in sorted_elems]
+    get_param_string_value_by_name(e, param_name) for e in sorted_elems]
 
 OUT = sorted_elems, sorted_param_vals
