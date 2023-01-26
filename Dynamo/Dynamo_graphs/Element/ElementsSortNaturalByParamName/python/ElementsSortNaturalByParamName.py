@@ -120,24 +120,28 @@ def get_param_string_value_by_name(_elem, _param_name):
 
     def _get_unitless_format_opts(_param):
         # type: (Parameter) -> FormatOptions
-        """Gets number format options to show them without the units."""
+        """Gets number format options to show value without the units."""
+
+        def _get_unit_type(_param, revit_ver):
+            # type: (Parameter, int) -> UnitType | SpecTypeId
+            if revit_ver < 2021:
+                return _param.Definition.UnitType()
+            return _param.Definition.GetDataType()
 
         def _is_measurable(unit_type, revit_ver):
+            # type: (Parameter) -> bool
             if revit_ver < 2021:
                 return UnitUtils.IsValidUnitType(unit_type)
             return UnitUtils.IsMeasurableSpec(unit_type)
 
         def _get_empty_symbol(revit_ver):
+            # type: (int) -> UnitSymbolType | ForgeTypeId
             if revit_ver < 2021:
                 return UnitSymbolType.UST_NONE
             return ForgeTypeId()
 
-        def _get_unit_type(_param, revit_ver):
-            if revit_ver < 2021:
-                return _param.Definition.UnitType()
-            return _param.Definition.GetDataType()
-
         def _set_symbol_type(format_opts, symbol_type, revit_ver):
+            # type: (FormatOptions, UnitSymbolType | ForgeTypeId, int) -> FormatOptions
             if revit_ver < 2021:
                 format_opts.UnitSymbol = symbol_type
             else:
