@@ -120,25 +120,7 @@ def get_param_string_value_by_name(_elem, _param_name):
 
     def _get_unitless_format_opts(_param):
         # type: (Parameter) -> FormatOptions
-        revit_ver = int(app.VersionNumber)
-        if revit_ver < 2021:
-            unit_type = _param.Definition.UnitType()
-            if UnitUtils.IsValidUnitType(unit_type):
-                doc_unit_opts = doc.GetUnits().GetFormatOptions(unit_type)
-                custom_opts = FormatOptions(doc_unit_opts)
-                empty_symbol = UnitSymbolType.UST_NONE
-                custom_opts.UnitSymbol = empty_symbol
-                return custom_opts
-        spec_type = _param.Definition.GetDataType()
-        if UnitUtils.IsMeasurableSpec(spec_type):
-            doc_unit_opts = doc.GetUnits().GetFormatOptions(spec_type)
-            custom_opts = FormatOptions(doc_unit_opts)
-            empty_symbol = ForgeTypeId()
-            custom_opts.SetSymbolTypeId(empty_symbol)
-            return custom_opts
-
-    def _get_unitless_format_opts2(_param):
-        # type: (Parameter) -> FormatOptions
+        """Gets number format options to show them without the units."""
 
         def _is_measurable(unit_type, revit_ver):
             if revit_ver < 2021:
@@ -158,7 +140,9 @@ def get_param_string_value_by_name(_elem, _param_name):
         def _set_symbol_type(format_opts, symbol_type, revit_ver):
             if revit_ver < 2021:
                 format_opts.UnitSymbol = symbol_type
-            format_opts.SetSymbolTypeId(symbol_type)
+            else:
+                format_opts.SetSymbolTypeId(symbol_type)
+            return format_opts
 
         revit_ver = int(app.VersionNumber)
         unit_type = _get_unit_type(_param, revit_ver)
@@ -167,8 +151,7 @@ def get_param_string_value_by_name(_elem, _param_name):
             doc_unit_opts = doc.GetUnits().GetFormatOptions(unit_type)
             custom_opts = FormatOptions(doc_unit_opts)
             empty_symbol = _get_empty_symbol(revit_ver)
-            _set_symbol_type(custom_opts, empty_symbol, revit_ver)
-            return custom_opts
+            return _set_symbol_type(custom_opts, empty_symbol, revit_ver)
 
     def _get_value_as_string(_param):
         # type: (Parameter) -> str
