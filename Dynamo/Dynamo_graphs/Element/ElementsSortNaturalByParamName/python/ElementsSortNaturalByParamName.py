@@ -113,14 +113,62 @@ def get_param_string_value_by_name(_elem, _param_name):
     def _get_value_as_unitless_string(_param):
         # type: (Parameter) -> str
         """Gets value as it is seen by the user, but without the units."""
+        unitless_format_opts = _get_unitless_format_opts(_param)
+        if unitless_format_opts is not None:
+            return _param.AsValueString(unitless_format_opts)
+        return _get_value_as_string(_param)
+
+    def _get_unitless_format_opts(_param):
+        # type: (Parameter) -> FormatOptions
+        revit_ver = int(app.VersionNumber)
+        if revit_ver < 2021:
+            unit_type = _param.Definition.UnitType()
+            if UnitUtils.IsValidUnitType(unit_type):
+                doc_unit_opts = doc.GetUnits().GetFormatOptions(unit_type)
+                custom_opts = FormatOptions(doc_unit_opts)
+                empty_symbol = UnitSymbolType.UST_NONE
+                custom_opts.UnitSymbol = empty_symbol
+                return custom_opts
         spec_type = _param.Definition.GetDataType()
         if UnitUtils.IsMeasurableSpec(spec_type):
             doc_unit_opts = doc.GetUnits().GetFormatOptions(spec_type)
             custom_opts = FormatOptions(doc_unit_opts)
             empty_symbol = ForgeTypeId()
             custom_opts.SetSymbolTypeId(empty_symbol)
-            return _param.AsValueString(custom_opts)
-        return _get_value_as_string(_param)
+            return custom_opts
+
+    def _get_unitless_format_opts2(_param):
+        # type: (Parameter) -> FormatOptions
+
+        def _is_measurable(unit_type, revit_ver):
+            if revit_ver < 2021:
+                return UnitUtils.IsValidUnitType(unit_type)
+            return UnitUtils.IsMeasurableSpec(unit_type)
+
+        def _get_empty_symbol(revit_ver):
+            if revit_ver < 2021:
+                return UnitSymbolType.UST_NONE
+            return ForgeTypeId()
+
+        def _get_unit_type(_param, revit_ver):
+            if revit_ver < 2021:
+                return _param.Definition.UnitType()
+            return _param.Definition.GetDataType()
+
+        def _set_symbol_type(format_opts, symbol_type, revit_ver):
+            if revit_ver < 2021:
+                format_opts.UnitSymbol = symbol_type
+            format_opts.SetSymbolTypeId(symbol_type)
+
+        revit_ver = int(app.VersionNumber)
+        unit_type = _get_unit_type(_param, revit_ver)
+
+        if _is_measurable(unit_type, revit_ver):
+            doc_unit_opts = doc.GetUnits().GetFormatOptions(unit_type)
+            custom_opts = FormatOptions(doc_unit_opts)
+            empty_symbol = _get_empty_symbol(revit_ver)
+            _set_symbol_type(custom_opts, empty_symbol, revit_ver)
+            return custom_opts
 
     def _get_value_as_string(_param):
         # type: (Parameter) -> str
@@ -142,7 +190,8 @@ def get_param_string_value_by_name(_elem, _param_name):
 unsorted_elems = tolist(UnwrapElement(IN[0]))
 param_name = IN[1]
 
-doc = DocumentManager.Instance.CurrentDBDocument
+doc = DocumentManager.Instance.CurrentDBDocument  # type: Document
+app = DocumentManager.Instance.CurrentUIApplication.Application
 
 sorted_elems = sorted(
     unsorted_elems, key=comparer_to_key(
