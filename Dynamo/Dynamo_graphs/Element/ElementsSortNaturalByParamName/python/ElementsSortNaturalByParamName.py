@@ -129,7 +129,7 @@ def get_param_string_value_by_name(_elem, _param_name):
             return _param.Definition.GetDataType()
 
         def _is_measurable(unit_type, revit_ver):
-            # type: (Parameter) -> bool
+            # type: (UnitType | SpecTypeId, int) -> bool
             if revit_ver < 2021:
                 return UnitUtils.IsValidUnitType(unit_type)
             return UnitUtils.IsMeasurableSpec(unit_type)
