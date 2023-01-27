@@ -177,7 +177,7 @@ def get_param_string_value_by_name(_elem, _param_name):
 unsorted_elems = tolist(UnwrapElement(IN[0]))
 param_name = IN[1]
 
-doc = DocumentManager.Instance.CurrentDBDocument  # type: Document
+doc = DocumentManager.Instance.CurrentDBDocument
 app = DocumentManager.Instance.CurrentUIApplication.Application
 
 sorted_elems = sorted(

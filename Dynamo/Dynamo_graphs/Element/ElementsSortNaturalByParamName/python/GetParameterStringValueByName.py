@@ -1,13 +1,28 @@
-import clr
+try:
+    # assuming we're in RPS or pyRevit
+    import clr
 
-clr.AddReference("RevitAPI")
-from Autodesk.Revit.DB import *
+    clr.AddReference("RevitAPI")
+    from Autodesk.Revit.DB import *
 
-clr.AddReference("RevitServices")
-from RevitServices.Persistence import DocumentManager
+    app = __revit__.Application
+    doc = __revit__.ActiveUIDocument.Document
+
+except NameError:
+    # ok, I guess, we're in Dynamo then =)
+    import clr
+
+    clr.AddReference("RevitAPI")
+    from Autodesk.Revit.DB import *
+
+    clr.AddReference("RevitServices")
+    from RevitServices.Persistence import DocumentManager
+
+    doc = DocumentManager.Instance.CurrentDBDocument
+    app = DocumentManager.Instance.CurrentUIApplication.Application
 
 
-def get_param_string_value_by_name(_elem, _param_name):
+def get_param_str_value_by_name(_elem, _param_name):
     # type: (Element, str) -> str
     """Gets Element's parameter string value by the given parameter name.
 
@@ -35,23 +50,29 @@ def get_param_string_value_by_name(_elem, _param_name):
 
     _validate_type(_elem, Element)
     _param = _lookup_param(_elem, _param_name)
+
     if _param is not None:
         wrapped_param = ParameterWrapper(_param)
-        if wrapped_param.value_is_invalid_element_id:
-            return None
-        custom_format = None
+
+        if not wrapped_param.value_is_invalid_element_id:
+            return wrapped_param.as_value_string(None)
+
         if wrapped_param._is_measurable:
             doc_unit_opts = \
                 doc.GetUnits().GetFormatOptions(wrapped_param.unit_type)
-            custom_format = CustomFormatOptions(doc_unit_opts)
-            custom_format.strip_symbol()
-        return wrapped_param.as_value_string(custom_format)
+            custom_format_opts = CustomFormatOptions(doc_unit_opts)
+            custom_format_opts.strip_symbol()
+            custom_format = custom_format_opts.format_options
+            return wrapped_param.as_value_string(custom_format)
 
 
 class ParameterWrapper(object):
-    """Revit Parameter wrapper to """
+    """Revit Parameter wrapper for cross-version usage"""
+    _app = app
+    _revit_ver = int(_app.VersionNumber)
+
     def __init__(self, parameter):
-        # type: (Document, Parameter) -> None
+        # type: (Parameter) -> None
         self._parameter = parameter
 
     def as_value_string(self, format_options):
@@ -70,25 +91,22 @@ class ParameterWrapper(object):
 
     @property
     def unit_type(self):
-        # type: () -> UnitType | SpecTypeId
+        # type: () -> SpecTypeId | UnitType
         if self._revit_ver < 2021:
             return self._parameter.Definition.UnitType()
         return self._parameter.Definition.GetDataType()
 
     @property
     def value_is_invalid_element_id(self):
+        """Checks whether parameter value the invalid ElementId."""
         # type: () -> bool
-        return self._value_is_element_id \
+        return self._parameter == StorageType.ElementId \
             and self._parameter.AsElementId() == ElementId.InvalidElementId
-
-    @property
-    def _value_is_element_id(self):
-        # type: () -> bool
-        return self._parameter == StorageType.ElementId
 
 
 class CustomFormatOptions(object):
-    _app = DocumentManager.Instance.CurrentUIApplication.Application
+    """Revit FormatOptions wrapper for cross-version usage"""
+    _app = app
     _revit_ver = int(_app.VersionNumber)
     _custom_opts = None
 
@@ -103,11 +121,15 @@ class CustomFormatOptions(object):
         return unitless_options
 
     def _set_symbol_type(self, symbol_type):
-        # type: (ForgeTypeId | UnitSymbolType) -> FormatOptions
+        # type: (ForgeTypeId | UnitSymbolType) -> None
         if self._revit_ver < 2021:
             self._custom_opts.UnitSymbol = symbol_type
         else:
             self._custom_opts.SetSymbolTypeId(symbol_type)
+
+    @property
+    def format_options(self):
+        # type: () -> FormatOptions
         return self._custom_opts
 
     @property
@@ -118,18 +140,18 @@ class CustomFormatOptions(object):
         return ForgeTypeId()
 
 
-doc = DocumentManager.Instance.CurrentDBDocument
-app = DocumentManager.Instance.CurrentUIApplication.Application
 rvt_ver = ': '.join(('Revit Version', app.SubVersionNumber))
 
-windows = FilteredElementCollector(doc)\
+win_types = FilteredElementCollector(doc)\
     .OfCategory(BuiltInCategory.OST_Windows)\
     .WhereElementIsElementType()\
     .ToElements()
 
 width_param_name = LabelUtils.GetLabelFor(BuiltInParameter.GENERIC_WIDTH)
-widths = [get_param_string_value_by_name(w, width_param_name) for w in windows]
+widths = [
+    get_param_str_value_by_name(wt, width_param_name) for wt in win_types]
 
 print(rvt_ver)
 print(widths[:5])
-OUT = rvt_ver, widths
+
+OUT = rvt_ver, widths[:5]
