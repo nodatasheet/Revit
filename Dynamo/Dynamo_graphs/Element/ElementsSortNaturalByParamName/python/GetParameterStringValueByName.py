@@ -100,8 +100,13 @@ class ParameterWrapper(object):
     def value_is_invalid_element_id(self):
         """Checks whether parameter value the invalid ElementId."""
         # type: () -> bool
-        return self._parameter == StorageType.ElementId \
+        return self._is_element_id \
             and self._parameter.AsElementId() == ElementId.InvalidElementId
+
+    @property
+    def _is_element_id(self):
+        # type: () -> bool
+        return self._parameter.StorageType == StorageType.ElementId
 
 
 class CustomFormatOptions(object):
