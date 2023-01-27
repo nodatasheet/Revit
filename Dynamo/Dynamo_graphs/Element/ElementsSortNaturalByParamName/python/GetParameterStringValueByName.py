@@ -54,9 +54,6 @@ def get_param_str_value_by_name(_elem, _param_name):
     if _param is not None:
         wrapped_param = ParameterWrapper(_param)
 
-        if not wrapped_param.value_is_invalid_element_id:
-            return wrapped_param.as_value_string(None)
-
         if wrapped_param._is_measurable:
             doc_unit_opts = \
                 doc.GetUnits().GetFormatOptions(wrapped_param.unit_type)
@@ -64,6 +61,9 @@ def get_param_str_value_by_name(_elem, _param_name):
             custom_format_opts.strip_symbol()
             custom_format = custom_format_opts.format_options
             return wrapped_param.as_value_string(custom_format)
+
+        if not wrapped_param.value_is_invalid_element_id:
+            return wrapped_param.as_value_string(None)
 
 
 class ParameterWrapper(object):
@@ -147,16 +147,27 @@ class CustomFormatOptions(object):
 
 rvt_ver = ': '.join(('Revit Version', app.SubVersionNumber))
 
-win_types = FilteredElementCollector(doc)\
+window_types = FilteredElementCollector(doc)\
     .OfCategory(BuiltInCategory.OST_Windows)\
     .WhereElementIsElementType()\
     .ToElements()
 
-width_param_name = LabelUtils.GetLabelFor(BuiltInParameter.GENERIC_WIDTH)
-widths = [
-    get_param_str_value_by_name(wt, width_param_name) for wt in win_types]
+width_param_name = \
+    LabelUtils.GetLabelFor(BuiltInParameter.GENERIC_WIDTH)
+type_name_param_name = \
+    LabelUtils.GetLabelFor(BuiltInParameter.SYMBOL_NAME_PARAM)
+resistance_param_name = \
+    LabelUtils.GetLabelFor(BuiltInParameter.ANALYTICAL_THERMAL_RESISTANCE)
 
 print(rvt_ver)
-print(widths[:5])
 
-OUT = rvt_ver, widths[:5]
+infos = []
+for wt in list(window_types)[:5]:
+    type_name = get_param_str_value_by_name(wt, type_name_param_name)
+    width = get_param_str_value_by_name(wt, width_param_name)
+    resistance = get_param_str_value_by_name(wt, resistance_param_name)
+    type_info = 'Type: {}, Width: {}, R: {}'.format(type_name, width, resistance)
+    infos.append(type_info)
+    print(type_info)
+
+OUT = rvt_ver, infos
