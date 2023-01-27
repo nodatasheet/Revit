@@ -59,8 +59,8 @@ def get_param_str_value_by_name(_elem, _param_name):
                 doc.GetUnits().GetFormatOptions(wrapped_param.unit_type)
             custom_format_opts = CustomFormatOptions(doc_unit_opts)
             custom_format_opts.strip_symbol()
-            custom_format = custom_format_opts.format_options
-            return wrapped_param.as_value_string(custom_format)
+            symbolless_format_opts = custom_format_opts.format_options
+            return wrapped_param.as_value_string(symbolless_format_opts)
 
         if not wrapped_param.value_is_invalid_element_id:
             return wrapped_param.as_value_string(None)
@@ -93,7 +93,7 @@ class ParameterWrapper(object):
     def unit_type(self):
         # type: () -> SpecTypeId | UnitType
         if self._revit_ver < 2021:
-            return self._parameter.Definition.UnitType()
+            return self._parameter.Definition.UnitType
         return self._parameter.Definition.GetDataType()
 
     @property
@@ -146,6 +146,7 @@ class CustomFormatOptions(object):
 
 
 rvt_ver = ': '.join(('Revit Version', app.SubVersionNumber))
+print(rvt_ver)
 
 window_types = FilteredElementCollector(doc)\
     .OfCategory(BuiltInCategory.OST_Windows)\
@@ -158,8 +159,6 @@ type_name_param_name = \
     LabelUtils.GetLabelFor(BuiltInParameter.SYMBOL_NAME_PARAM)
 resistance_param_name = \
     LabelUtils.GetLabelFor(BuiltInParameter.ANALYTICAL_THERMAL_RESISTANCE)
-
-print(rvt_ver)
 
 infos = []
 for wt in list(window_types)[:5]:
